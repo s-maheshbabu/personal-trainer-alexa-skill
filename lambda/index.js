@@ -5,7 +5,7 @@
  * */
 const Alexa = require('ask-sdk-core');
 
-const document = require("skill-package/response/display/WorkoutVideoView/document.json");
+const document = require("skill-package/response/display/WorkoutVideoView/document");
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
