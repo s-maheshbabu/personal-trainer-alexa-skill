@@ -1,5 +1,5 @@
 {
-  "name": "hello-world",
+  "name": "personal-trainer",
   "version": "1.2.0",
   "description": "alexa utility for quickly building skills",
   "main": "index.js",
@@ -10,7 +10,10 @@
   "license": "Apache License",
   "dependencies": {
     "ask-sdk-core": "^2.7.0",
-    "ask-sdk-model": "^1.19.0",
+    "ask-sdk-model": "^1.34.1",
     "aws-sdk": "^2.326.0"
+  },
+  "devDependencies": {
+    "ask-sdk-local-debug": "^1.1.0"
   }
 }
