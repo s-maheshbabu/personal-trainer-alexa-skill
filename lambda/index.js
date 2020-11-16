@@ -5,6 +5,8 @@
  * */
 const Alexa = require('ask-sdk-core');
 
+const document = require("../skill-package/response/display/WorkoutVideoView/document.json");
+
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -26,9 +28,17 @@ const HelloWorldIntentHandler = {
     },
     handle(handlerInput) {
         const speakOutput = 'Here is a workout video for you. Edited.';
+        const aplDirective = {
+            type: "Alexa.Presentation.APL.RenderDocument",
+            version: "1.4",
+            document: document,
+            datasources: {},
+        };
+
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
+            .addDirective(aplDirective)
             .getResponse();
     }
 };
