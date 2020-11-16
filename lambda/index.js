@@ -25,7 +25,7 @@ const HelloWorldIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'PlayWorkoutVideoIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'Here is a workout video for you.';
+        const speakOutput = 'Here is a workout video for you. Edited.';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
