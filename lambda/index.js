@@ -3,9 +3,10 @@
  * Please visit https://alexa.design/cookbook for additional examples on implementing slots, dialog management,
  * session persistence, api calls, and more.
  * */
+require("app-module-path").addPath(__dirname);
 const Alexa = require('ask-sdk-core');
 
-const document = require("skill-package/response/display/WorkoutVideoView/document");
+const document = require("../skill-package/response/display/WorkoutVideoView/document.json");
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -38,7 +39,7 @@ const HelloWorldIntentHandler = {
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
-            .addDirective(aplDirective)
+            //.addDirective(aplDirective)
             .getResponse();
     }
 };

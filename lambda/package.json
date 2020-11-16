@@ -9,6 +9,7 @@
   "author": "Amazon Alexa",
   "license": "Apache License",
   "dependencies": {
+    "app-module-path": "^2.2.0",
     "ask-sdk-core": "^2.7.0",
     "ask-sdk-model": "^1.34.1",
     "aws-sdk": "^2.326.0"
