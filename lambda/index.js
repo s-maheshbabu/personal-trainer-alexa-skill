@@ -7,6 +7,7 @@ require("app-module-path").addPath(__dirname);
 const Alexa = require('ask-sdk-core');
 
 const doc = require("response/display/WorkoutVideoView/document.json");
+const workoutVideosDataSource = require("response/display/WorkoutVideoView/datasources/default");
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -33,9 +34,10 @@ const HelloWorldIntentHandler = {
             type: "Alexa.Presentation.APL.RenderDocument",
             version: "1.4",
             document: doc,
-            datasources: {},
+            datasources: {
+                workoutVideosDataSource: workoutVideosDataSource(0)
+            },
         };
-
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
