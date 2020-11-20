@@ -27,7 +27,10 @@
           "name": "PlayWorkoutVideoIntent",
           "slots": [],
           "samples": [
-            "play a workout video"
+            "play a workout video",
+            "show me a workout video",
+            "start a workout video",
+            "start workout"
           ]
         }
       ],

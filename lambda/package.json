@@ -12,7 +12,8 @@
     "app-module-path": "^2.2.0",
     "ask-sdk-core": "^2.7.0",
     "ask-sdk-model": "^1.34.1",
-    "aws-sdk": "^2.326.0"
+    "aws-sdk": "^2.326.0",
+    "ytdl-core": "^4.0.5"
   },
   "devDependencies": {
     "ask-sdk-local-debug": "^1.1.0"

@@ -6,6 +6,8 @@
 require("app-module-path").addPath(__dirname);
 const Alexa = require('ask-sdk-core');
 
+const ytdl = require('ytdl-core');
+
 const doc = require("response/display/WorkoutVideoView/document.json");
 const workoutVideosDataSource = require("response/display/WorkoutVideoView/datasources/default");
 
@@ -24,18 +26,28 @@ const LaunchRequestHandler = {
 };
 
 const HelloWorldIntentHandler = {
+
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'PlayWorkoutVideoIntent';
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'StartWorkoutVideoIntent';
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
+        const videos = [
+            "https://www.youtube.com/watch?v=-5ztdzyQkSQ",
+            "https://www.youtube.com/watch?v=Mvo2snJGhtM",
+        ];
+
+        let info = await ytdl.getInfo(videos[Math.random() < 0.5 ? 0 : 1]);
+        let highQualityAudioVideoStream = ytdl.chooseFormat(info.formats, { filter: 'audioandvideo', quality: 'highestvideo' });
+        console.log('Requested Quality', highQualityAudioVideoStream.url);
+
         const speakOutput = 'Here is a workout video for you. Edited.';
         const aplDirective = {
             type: "Alexa.Presentation.APL.RenderDocument",
             version: "1.4",
             document: doc,
             datasources: {
-                workoutVideosDataSource: workoutVideosDataSource(0)
+                workoutVideosDataSource: workoutVideosDataSource(highQualityAudioVideoStream.url)
             },
         };
 
