@@ -30,8 +30,30 @@
         },
         {
           "name": "PlayWorkoutVideoIntent",
-          "slots": [],
+          "slots": [
+            {
+              "name": "Duration",
+              "type": "AMAZON.DURATION"
+            },
+            {
+              "name": "ExerciseType",
+              "type": "ExerciseType"
+            },
+            {
+              "name": "ExerciseLevel",
+              "type": "ExerciseLevel"
+            },
+            {
+              "name": "MuscleGroup",
+              "type": "MuscleGroup",
+              "multipleValues": {
+                "enabled": true
+              }
+            }
+          ],
           "samples": [
+            "play a {Duration} {ExerciseLevel} {MuscleGroup} workout",
+            "play a {MuscleGroup} {ExerciseType} workout",
             "play a workout video",
             "show me a workout video",
             "start a workout video",
@@ -79,7 +101,226 @@
           "samples": []
         }
       ],
-      "types": []
+      "types": [
+        {
+          "name": "ExerciseLevel",
+          "values": [
+            {
+              "id": "MEDIUM",
+              "name": {
+                "value": "Medium",
+                "synonyms": [
+                  "mid level"
+                ]
+              }
+            },
+            {
+              "id": "EASY",
+              "name": {
+                "value": "Easy",
+                "synonyms": [
+                  "beginners",
+                  "easiest"
+                ]
+              }
+            },
+            {
+              "id": "HARD",
+              "name": {
+                "value": "Hard",
+                "synonyms": [
+                  "difficult",
+                  "hardcore",
+                  "tough"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "ExerciseType",
+          "values": [
+            {
+              "id": "CARDIO",
+              "name": {
+                "value": "Cardio"
+              }
+            },
+            {
+              "id": "FUNCTIONAL_TRAINING",
+              "name": {
+                "value": "Functional Training"
+              }
+            },
+            {
+              "id": "HIIT",
+              "name": {
+                "value": "HIIT"
+              }
+            },
+            {
+              "id": "STRENGTH_TRAINING",
+              "name": {
+                "value": "Strength Training"
+              }
+            },
+            {
+              "id": "STRETCHING",
+              "name": {
+                "value": "Stretching"
+              }
+            },
+            {
+              "id": "YOGA",
+              "name": {
+                "value": "Yoga"
+              }
+            }
+          ]
+        },
+        {
+          "name": "MuscleGroup",
+          "values": [
+            {
+              "id": "LOWER_BACK",
+              "name": {
+                "value": "Lower Back",
+                "synonyms": [
+                  "lower back"
+                ]
+              }
+            },
+            {
+              "id": "UPPER_BACK",
+              "name": {
+                "value": "Upper Back",
+                "synonyms": [
+                  "back"
+                ]
+              }
+            },
+            {
+              "id": "LATISSIMUS_DORSI",
+              "name": {
+                "value": "Latissimus Dorsi",
+                "synonyms": [
+                  "lats"
+                ]
+              }
+            },
+            {
+              "id": "TRAPEZIUS",
+              "name": {
+                "value": "Trapezius",
+                "synonyms": [
+                  "neck muscles",
+                  "neck",
+                  "traps"
+                ]
+              }
+            },
+            {
+              "id": "DELTOIDS",
+              "name": {
+                "value": "Deltoids",
+                "synonyms": [
+                  "front deltoid",
+                  "posterior deltoid",
+                  "rear deltoid",
+                  "rear deltoids",
+                  "rear shoulder",
+                  "shoulders"
+                ]
+              }
+            },
+            {
+              "id": "FOREARMS",
+              "name": {
+                "value": "Forearms",
+                "synonyms": [
+                  "lower arms"
+                ]
+              }
+            },
+            {
+              "id": "TRICEPS",
+              "name": {
+                "value": "Triceps"
+              }
+            },
+            {
+              "id": "BICEPS",
+              "name": {
+                "value": "Biceps",
+                "synonyms": [
+                  "arms",
+                  "upper arms"
+                ]
+              }
+            },
+            {
+              "id": "ABDOMINALS",
+              "name": {
+                "value": "Abdominals",
+                "synonyms": [
+                  "abs",
+                  "belly",
+                  "core",
+                  "stomach"
+                ]
+              }
+            },
+            {
+              "id": "PECTORALS",
+              "name": {
+                "value": "Pectorals",
+                "synonyms": [
+                  "breast",
+                  "chest",
+                  "pecs"
+                ]
+              }
+            },
+            {
+              "id": "CALVES",
+              "name": {
+                "value": "Calves",
+                "synonyms": [
+                  "calf muscle",
+                  "calf",
+                  "lower legs",
+                  "shins"
+                ]
+              }
+            },
+            {
+              "id": "HAMSTRINGS",
+              "name": {
+                "value": "Hamstrings",
+                "synonyms": [
+                  "back of legs",
+                  "hamstring muscle",
+                  "rear thighs"
+                ]
+              }
+            },
+            {
+              "id": "QUADRICEPS",
+              "name": {
+                "value": "Quadriceps",
+                "synonyms": [
+                  "quad muscle",
+                  "Quads",
+                  "thigh muscle",
+                  "Thighs",
+                  "upper leg",
+                  "upper legs"
+                ]
+              }
+            }
+          ]
+        }
+      ]
     }
   }
 }
