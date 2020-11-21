@@ -56,6 +56,7 @@
             "play a {MuscleGroup} {ExerciseType} workout",
             "play a workout video",
             "show me a workout video",
+            "start a workout",
             "start a workout video",
             "start workout"
           ]
