@@ -6,121 +6,37 @@
 require("app-module-path").addPath(__dirname);
 const Alexa = require('ask-sdk-core');
 
-const ytdl = require('ytdl-core');
+const LaunchRequestHandler = require("requesthandlers/LaunchRequestHandler");
+const SessionEndedRequestHandler = require("requesthandlers/SessionEndedRequestHandler");
 
-const doc = require("response/display/WorkoutVideoView/document.json");
-const workoutVideosDataSource = require("response/display/WorkoutVideoView/datasources/default");
+const CancelAndStopIntentHandler = require("intenthandlers/CancelAndStopIntentHandler");
+const FallbackIntentHandler = require("intenthandlers/FallbackIntentHandler");
+const HelpIntentHandler = require("intenthandlers/HelpIntentHandler");
+const PlayWorkoutVideoIntentHandler = require("intenthandlers/PlayWorkoutVideoIntentHandler");
 
-const LaunchRequestHandler = {
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
+const ErrorHandler = require("errors/ErrorHandler");
+
+const ResponseSanitizationInterceptor = require("interceptors/ResponseSanitizationInterceptor");
+
+const TOTAL_REQUEST_TIME = `Total Request Time`;
+
+// ***************************************************************************************************
+// These simple interceptors just log the incoming and outgoing request bodies to assist in debugging.
+
+const LogRequestInterceptor = {
+    process(handlerInput) {
+        console.log(`REQUEST ENVELOPE = ${JSON.stringify(handlerInput.requestEnvelope)}`);
+        console.time(TOTAL_REQUEST_TIME);
     },
-    handle(handlerInput) {
-        const speakOutput = 'Welcome, to personal trainer. That is it for now? Okey dokey bokey.';
-
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .reprompt(speakOutput)
-            .getResponse();
-    }
 };
 
-const HelloWorldIntentHandler = {
-
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'StartWorkoutVideoIntent';
+const LogResponseInterceptor = {
+    process(handlerInput, response) {
+        console.log(`RESPONSE = ${JSON.stringify(response)}`);
+        console.timeEnd(TOTAL_REQUEST_TIME);
     },
-    async handle(handlerInput) {
-        const videos = [
-            "https://www.youtube.com/watch?v=-5ztdzyQkSQ",
-            "https://www.youtube.com/watch?v=Mvo2snJGhtM",
-        ];
-
-        let info = await ytdl.getInfo(videos[Math.random() < 0.5 ? 0 : 1]);
-        let highQualityAudioVideoStream = ytdl.chooseFormat(info.formats, { filter: 'audioandvideo', quality: 'highestvideo' });
-        console.log('Requested Quality', highQualityAudioVideoStream.url);
-
-        const speakOutput = 'Here is a workout video for you. Edited.';
-        const aplDirective = {
-            type: "Alexa.Presentation.APL.RenderDocument",
-            version: "1.4",
-            document: doc,
-            datasources: {
-                workoutVideosDataSource: workoutVideosDataSource(highQualityAudioVideoStream.url)
-            },
-        };
-
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .addDirective(aplDirective)
-            .getResponse();
-    }
 };
 
-const HelpIntentHandler = {
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
-    },
-    handle(handlerInput) {
-        const speakOutput = 'You can say hello to me! How can I help?';
-
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .reprompt(speakOutput)
-            .getResponse();
-    }
-};
-
-const CancelAndStopIntentHandler = {
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.CancelIntent'
-                || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent');
-    },
-    handle(handlerInput) {
-        const speakOutput = 'Goodbye!';
-
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .getResponse();
-    }
-};
-/* *
- * FallbackIntent triggers when a customer says something that doesn’t map to any intents in your skill
- * It must also be defined in the language model (if the locale supports it)
- * This handler can be safely added but will be ingnored in locales that do not support it yet 
- * */
-const FallbackIntentHandler = {
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.FallbackIntent';
-    },
-    handle(handlerInput) {
-        const speakOutput = 'Sorry, I don\'t know about that. Please try again.';
-
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .reprompt(speakOutput)
-            .getResponse();
-    }
-};
-/* *
- * SessionEndedRequest notifies that a session was ended. This handler will be triggered when a currently open 
- * session is closed for one of the following reasons: 1) The user says "exit" or "quit". 2) The user does not 
- * respond or says something that does not match an intent defined in your voice model. 3) An error occurs 
- * */
-const SessionEndedRequestHandler = {
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest';
-    },
-    handle(handlerInput) {
-        console.log(`~~~~ Session ended: ${JSON.stringify(handlerInput.requestEnvelope)}`);
-        // Any cleanup logic goes here.
-        return handlerInput.responseBuilder.getResponse(); // notice we send an empty response
-    }
-};
 /* *
  * The intent reflector is used for interaction model testing and debugging.
  * It will simply repeat the intent the user said. You can create custom handlers for your intents 
@@ -136,26 +52,6 @@ const IntentReflectorHandler = {
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
-            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
-            .getResponse();
-    }
-};
-/**
- * Generic error handling to capture any syntax or routing errors. If you receive an error
- * stating the request handler chain is not found, you have not implemented a handler for
- * the intent being invoked or included it in the skill builder below 
- * */
-const ErrorHandler = {
-    canHandle() {
-        return true;
-    },
-    handle(handlerInput, error) {
-        const speakOutput = 'Sorry, I had trouble doing what you asked. Please try again.';
-        console.log(`~~~~ Error handled: ${JSON.stringify(error)}`);
-
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .reprompt(speakOutput)
             .getResponse();
     }
 };
@@ -168,13 +64,22 @@ const ErrorHandler = {
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
-        HelloWorldIntentHandler,
+        PlayWorkoutVideoIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
         SessionEndedRequestHandler,
-        IntentReflectorHandler)
+        IntentReflectorHandler,
+    )
+    .addRequestInterceptors(
+        LogRequestInterceptor,
+    )
+    .addResponseInterceptors(
+        ResponseSanitizationInterceptor,
+        LogResponseInterceptor,
+    )
     .addErrorHandlers(
-        ErrorHandler)
+        ErrorHandler,
+    )
     .withCustomUserAgent('sample/personal-trainer/v1.2')
     .lambda();
