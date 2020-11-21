@@ -2,6 +2,11 @@
   "interactionModel": {
     "languageModel": {
       "invocationName": "personal trainer",
+      "modelConfiguration": {
+        "fallbackIntentSensitivity": {
+          "level": "LOW"
+        }
+      },
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
@@ -32,15 +37,49 @@
             "start a workout video",
             "start workout"
           ]
+        },
+        {
+          "name": "AMAZON.PauseIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ResumeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NextIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PreviousIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StartOverIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.RepeatIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.LoopOnIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.LoopOffIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ShuffleOffIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ShuffleOnIntent",
+          "samples": []
         }
       ],
-      "types": [],
-      "modelConfiguration": {
-        "fallbackIntentSensitivity": {
-          "level": "LOW"
-        }
-      }
+      "types": []
     }
-  },
-  "version": "5"
+  }
 }
