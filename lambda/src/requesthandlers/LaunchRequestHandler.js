@@ -6,7 +6,7 @@ module.exports = LaunchRequestHandler = {
     return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
   },
   handle(handlerInput) {
-    const speakOutput = 'Welcome, to personal trainer. This is a placeholder.';
+    const speakOutput = 'Welcome, to personal trainer. This is a placeholder?';
 
     return handlerInput.responseBuilder
       .speak(speakOutput)

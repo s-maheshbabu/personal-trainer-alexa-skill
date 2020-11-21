@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "types": [
+            "chai",
+            "mocha",
+            "node",
+            "sinon"
+        ],
+        "typeRoots": [
+            "lambda/node_modules/@types"
+        ],
+    }
+}

@@ -3,8 +3,12 @@
   "version": "1.2.0",
   "description": "alexa utility for quickly building skills",
   "main": "index.js",
+  "watch": {
+    "test": "{src,test}/*.ts"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "find ./test | xargs ./node_modules/.bin/mocha --require node_modules/ts-node/register/index.js -R spec",
+    "watch": "npm-watch"
   },
   "author": "Amazon Alexa",
   "license": "Apache License",
@@ -17,6 +21,17 @@
     "ytdl-core": "^4.0.5"
   },
   "devDependencies": {
-    "ask-sdk-local-debug": "^1.1.0"
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.6.8",
+    "@types/sinon": "^7.0.13",
+    "ask-sdk-test": "s-maheshbabu/ask-sdk-test",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "npm-watch": "^0.7.0",
+    "ts-node": "^8.10.1",
+    "tslint": "^6.1.2",
+    "typedoc": "^0.17.7",
+    "typescript": "^3.9.3"
   }
 }
