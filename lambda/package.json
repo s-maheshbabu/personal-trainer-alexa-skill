@@ -25,7 +25,6 @@
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.6.8",
     "@types/sinon": "^7.0.13",
-    "ask-sdk-local-debug": "^1.1.0",
     "ask-sdk-test": "s-maheshbabu/ask-sdk-test",
     "chai": "^4.2.0",
     "mocha": "^6.2.0",
