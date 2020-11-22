@@ -25,7 +25,7 @@
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.6.8",
     "@types/sinon": "^7.0.13",
-    "ask-sdk-test": "s-maheshbabu/ask-sdk-test",
+    "ask-sdk-test": "^2.5.0",
     "chai": "^4.2.0",
     "mocha": "^6.2.0",
     "npm-watch": "^0.7.0",
