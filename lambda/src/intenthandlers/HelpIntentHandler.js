@@ -6,7 +6,7 @@ module.exports = HelpIntentHandler = {
       && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
-    const speakOutput = 'You can ask me to play workout videos! This placeholder. How can I help?';
+    const speakOutput = 'You can ask me to play workout videos! How can I help?';
 
     return handlerInput.responseBuilder
       .speak(speakOutput)
