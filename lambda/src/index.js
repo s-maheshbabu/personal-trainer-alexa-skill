@@ -6,6 +6,8 @@
 require("app-module-path").addPath(__dirname);
 const Alexa = require('ask-sdk-core');
 
+const StartWorkoutAPI = require("api/StartWorkoutAPI");
+
 const LaunchRequestHandler = require("requesthandlers/LaunchRequestHandler");
 const SessionEndedRequestHandler = require("requesthandlers/SessionEndedRequestHandler");
 
@@ -64,13 +66,16 @@ const IntentReflectorHandler = {
  * */
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
-        LaunchRequestHandler,
-        UnsupportedPlaybackControlsIntentHandler,
-        PlayWorkoutVideoIntentHandler,
-        HelpIntentHandler,
         CancelAndStopIntentHandler,
-        FallbackIntentHandler,
+        HelpIntentHandler,
+        LaunchRequestHandler,
+        PlayWorkoutVideoIntentHandler,
+        UnsupportedPlaybackControlsIntentHandler,
+
+        StartWorkoutAPI,
+
         SessionEndedRequestHandler,
+        FallbackIntentHandler,
         IntentReflectorHandler,
     )
     .addRequestInterceptors(

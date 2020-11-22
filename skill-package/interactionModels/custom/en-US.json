@@ -319,6 +319,16 @@
               }
             }
           ]
+        },
+        {
+          "name": "StringLiteral",
+          "values": [
+            {
+              "name": {
+                "value": "dummy value for api response literal property"
+              }
+            }
+          ]
         }
       ]
     }
