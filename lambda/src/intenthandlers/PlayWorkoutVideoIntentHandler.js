@@ -10,6 +10,10 @@ const workoutVideosDataSource = require("response/display/WorkoutVideoView/datas
 const videos = [
   "https://www.youtube.com/watch?v=-5ztdzyQkSQ",
   "https://www.youtube.com/watch?v=Mvo2snJGhtM",
+  "https://www.youtube.com/watch?v=CBWQGb4LyAM",
+  "https://www.youtube.com/watch?v=tbbZBtdd20U",
+  "https://www.youtube.com/watch?v=fyzveWI25aI",
+  "https://www.youtube.com/watch?v=QNAOIXhNRJs",
 ];
 
 module.exports = PlayWorkoutVideoIntentHandler = {
@@ -18,8 +22,7 @@ module.exports = PlayWorkoutVideoIntentHandler = {
       && Alexa.getIntentName(handlerInput.requestEnvelope) === 'PlayWorkoutVideoIntent';
   },
   async handle(handlerInput) {
-
-    let info = await ytdl.getInfo(videos[Math.random() < 0.5 ? 0 : 1]);
+    let info = await ytdl.getInfo(videos[Math.floor(Math.random() * videos.length)]);
     let highQualityAudioVideoStream = ytdl.chooseFormat(info.formats, { filter: 'audioandvideo', quality: 'highestvideo' });
     console.log('URL to be played', highQualityAudioVideoStream.url);
 
