@@ -3,7 +3,7 @@ const getCommand = require("constants/PlaybackControlCommands").getCommand;
 
 const { APL_COMMANDS_TYPE, VIDEO_PLAYER_COMPONENT_ID, VIDEO_PLAYER_VIEW_TOKEN } = require("constants/APL");
 
-module.exports = PauseIntentHandler = {
+module.exports = PlaybackControlIntentsHandler = {
   canHandle(handlerInput) {
     return utilities.isIntent(handlerInput, 'AMAZON.PauseIntent');
   },
