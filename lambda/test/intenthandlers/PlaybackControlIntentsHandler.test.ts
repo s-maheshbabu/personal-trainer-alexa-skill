@@ -1,4 +1,4 @@
-const assert = require("chai").assert;
+import { assert } from 'chai';
 
 import * as deepEqual from 'deep-equal';
 
@@ -15,7 +15,6 @@ import { handler as skillHandler } from "../../src/index";
 const alexaTest = new AlexaTest(skillHandler, skillSettings);
 
 const { APL_COMMANDS_TYPE, VIDEO_PLAYER_COMPONENT_ID, VIDEO_PLAYER_VIEW_TOKEN } = require("constants/APL");
-const getCommand = require("constants/PlaybackControlCommands").getCommand;
 
 describe("Playback Controls", () => {
     describe('should be able to pause a video', () => {
