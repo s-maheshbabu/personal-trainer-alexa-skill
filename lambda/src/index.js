@@ -14,6 +14,7 @@ const SessionEndedRequestHandler = require("requesthandlers/SessionEndedRequestH
 const CancelAndStopIntentHandler = require("intenthandlers/CancelAndStopIntentHandler");
 const FallbackIntentHandler = require("intenthandlers/FallbackIntentHandler");
 const HelpIntentHandler = require("intenthandlers/HelpIntentHandler");
+const PauseIntentHandler = require("intenthandlers/PauseIntentHandler");
 const PlayWorkoutVideoIntentHandler = require("intenthandlers/PlayWorkoutVideoIntentHandler");
 const UnsupportedPlaybackControlsIntentHandler = require("intenthandlers/UnsupportedPlaybackControlsIntentHandler");
 
@@ -69,6 +70,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         CancelAndStopIntentHandler,
         HelpIntentHandler,
         LaunchRequestHandler,
+        PauseIntentHandler,
         PlayWorkoutVideoIntentHandler,
         UnsupportedPlaybackControlsIntentHandler,
 

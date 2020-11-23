@@ -28,6 +28,7 @@
     "ask-sdk-test": "^2.5.0",
     "ask-sdk-local-debug": "^1.1.0",
     "chai": "^4.2.0",
+    "deep-equal": "^2.0.4",
     "mocha": "^6.2.0",
     "npm-watch": "^0.7.0",
     "ts-node": "^8.10.1",

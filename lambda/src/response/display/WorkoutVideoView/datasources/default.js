@@ -1,3 +1,6 @@
-module.exports = (url) => {
-    return { url: url };
+module.exports = (url, videoPlayerId) => {
+    return {
+        url: url,
+        videoPlayerId: videoPlayerId,
+    };
 };

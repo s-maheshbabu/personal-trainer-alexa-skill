@@ -1,4 +1,5 @@
 const hasIn = require("immutable").hasIn;
+const APL_CONSTANTS = require("constants/APL");
 
 /**
  * Sanitize the response. Retains the APL directives only if the

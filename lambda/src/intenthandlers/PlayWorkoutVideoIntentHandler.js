@@ -1,5 +1,7 @@
 const Alexa = require('ask-sdk-core');
 
+const { APL_DOCUMENT_TYPE, APL_DOCUMENT_VERSION, VIDEO_PLAYER_COMPONENT_ID, VIDEO_PLAYER_VIEW_TOKEN } = require("constants/APL");
+
 const ytdl = require('ytdl-core');
 
 const doc = require("response/display/WorkoutVideoView/document.json");
@@ -23,11 +25,12 @@ module.exports = PlayWorkoutVideoIntentHandler = {
 
     const speakOutput = 'Here is a workout video for you.';
     const aplDirective = {
-      type: "Alexa.Presentation.APL.RenderDocument",
-      version: "1.4",
+      type: APL_DOCUMENT_TYPE,
+      token: VIDEO_PLAYER_VIEW_TOKEN,
+      version: APL_DOCUMENT_VERSION,
       document: doc,
       datasources: {
-        workoutVideosDataSource: workoutVideosDataSource(highQualityAudioVideoStream.url)
+        workoutVideosDataSource: workoutVideosDataSource(highQualityAudioVideoStream.url, VIDEO_PLAYER_COMPONENT_ID)
       },
     };
 
