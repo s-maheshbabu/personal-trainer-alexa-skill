@@ -6,13 +6,13 @@
                 "duration": 10
             },
             "exerciseType": [
-                "strength"
+                "STRENGTH_TRAINING"
             ],
             "muscle": [
-                "abs"
+                "ABDOMINALS"
             ],
             "difficulty": [
-                "easy"
+                "EASY"
             ]
         },
         {
@@ -21,14 +21,14 @@
                 "duration": 10
             },
             "exerciseType": [
-                "cardio",
-                "hiit"
+                "CARDIO",
+                "HIIT"
             ],
             "muscle": [
-                "quads"
+                "QUADRICEPS"
             ],
             "difficulty": [
-                "easy"
+                "EASY"
             ]
         },
         {
@@ -37,15 +37,15 @@
                 "duration": 5
             },
             "exerciseType": [
-                "cardio",
-                "yoga"
+                "CARDIO",
+                "YOGA"
             ],
             "muscle": [
-                "abs",
-                "back"
+                "ABDOMINALS",
+                "UPPER_BACK"
             ],
             "difficulty": [
-                "hard"
+                "HARD"
             ]
         },
         {
@@ -54,14 +54,14 @@
                 "duration": 30
             },
             "exerciseType": [
-                "cardio",
-                "stretching"
+                "CARDIO",
+                "STRETCHING"
             ],
             "muscle": [
-                "biceps"
+                "BICEPS"
             ],
             "difficulty": [
-                "hard"
+                "MEDIUM"
             ]
         },
         {
@@ -70,13 +70,13 @@
                 "duration": 20
             },
             "exerciseType": [
-                "stretching"
+                "STRETCHING"
             ],
             "muscle": [
-                "biceps"
+                "BICEPS"
             ],
             "difficulty": [
-                "hard"
+                "HARD"
             ]
         },
         {
@@ -85,14 +85,14 @@
                 "duration": 30
             },
             "exerciseType": [
-                "cardio"
+                "CARDIO"
             ],
             "muscle": [
-                "biceps",
-                "glutes"
+                "BICEPS",
+                "DELTOIDS"
             ],
             "difficulty": [
-                "easy"
+                "EASY"
             ]
         }
     ]
