@@ -1,99 +1,97 @@
-{
-    "videos": [
-        {
-            "video": {
-                "yturl": "https://www.youtube.com/watch?v=-5ztdzyQkSQ",
-                "duration": 10
-            },
-            "exerciseType": [
-                "STRENGTH_TRAINING"
-            ],
-            "muscle": [
-                "ABDOMINALS"
-            ],
-            "difficulty": [
-                "EASY"
-            ]
+[
+    {
+        "video": {
+            "yturl": "https://www.youtube.com/watch?v=-5ztdzyQkSQ",
+            "duration": 10
         },
-        {
-            "video": {
-                "yturl": "https://www.youtube.com/watch?v=Mvo2snJGhtM",
-                "duration": 10
-            },
-            "exerciseType": [
-                "CARDIO",
-                "HIIT"
-            ],
-            "muscle": [
-                "QUADRICEPS"
-            ],
-            "difficulty": [
-                "EASY"
-            ]
+        "exerciseType": [
+            "STRENGTH_TRAINING"
+        ],
+        "muscle": [
+            "ABDOMINALS"
+        ],
+        "difficulty": [
+            "EASY"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://www.youtube.com/watch?v=Mvo2snJGhtM",
+            "duration": 10
         },
-        {
-            "video": {
-                "yturl": "https://www.youtube.com/watch?v=CBWQGb4LyAM",
-                "duration": 5
-            },
-            "exerciseType": [
-                "CARDIO",
-                "YOGA"
-            ],
-            "muscle": [
-                "ABDOMINALS",
-                "UPPER_BACK"
-            ],
-            "difficulty": [
-                "HARD"
-            ]
+        "exerciseType": [
+            "CARDIO",
+            "HIIT"
+        ],
+        "muscle": [
+            "QUADRICEPS"
+        ],
+        "difficulty": [
+            "EASY"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://www.youtube.com/watch?v=CBWQGb4LyAM",
+            "duration": 5
         },
-        {
-            "video": {
-                "yturl": "https://www.youtube.com/watch?v=tbbZBtdd20U",
-                "duration": 30
-            },
-            "exerciseType": [
-                "CARDIO",
-                "STRETCHING"
-            ],
-            "muscle": [
-                "BICEPS"
-            ],
-            "difficulty": [
-                "MEDIUM"
-            ]
+        "exerciseType": [
+            "CARDIO",
+            "YOGA"
+        ],
+        "muscle": [
+            "ABDOMINALS",
+            "UPPER_BACK"
+        ],
+        "difficulty": [
+            "HARD"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://www.youtube.com/watch?v=tbbZBtdd20U",
+            "duration": 30
         },
-        {
-            "video": {
-                "yturl": "https://www.youtube.com/watch?v=fyzveWI25aI",
-                "duration": 20
-            },
-            "exerciseType": [
-                "STRETCHING"
-            ],
-            "muscle": [
-                "BICEPS"
-            ],
-            "difficulty": [
-                "HARD"
-            ]
+        "exerciseType": [
+            "CARDIO",
+            "STRETCHING"
+        ],
+        "muscle": [
+            "BICEPS"
+        ],
+        "difficulty": [
+            "MEDIUM"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://www.youtube.com/watch?v=fyzveWI25aI",
+            "duration": 20
         },
-        {
-            "video": {
-                "yturl": "https://www.youtube.com/watch?v=QNAOIXhNRJs",
-                "duration": 30
-            },
-            "exerciseType": [
-                "CARDIO"
-            ],
-            "muscle": [
-                "BICEPS",
-                "DELTOIDS"
-            ],
-            "difficulty": [
-                "EASY"
-            ]
-        }
-    ]
-}
+        "exerciseType": [
+            "STRETCHING"
+        ],
+        "muscle": [
+            "BICEPS"
+        ],
+        "difficulty": [
+            "HARD"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://www.youtube.com/watch?v=QNAOIXhNRJs",
+            "duration": 30
+        },
+        "exerciseType": [
+            "CARDIO"
+        ],
+        "muscle": [
+            "BICEPS",
+            "DELTOIDS"
+        ],
+        "difficulty": [
+            "EASY"
+        ]
+    }
+]
