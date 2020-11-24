@@ -1,0 +1,99 @@
+{
+    "videos": [
+        {
+            "video": {
+                "yturl": "https://www.youtube.com/watch?v=-5ztdzyQkSQ",
+                "duration": 10
+            },
+            "exerciseType": [
+                "strength"
+            ],
+            "muscle": [
+                "abs"
+            ],
+            "difficulty": [
+                "easy"
+            ]
+        },
+        {
+            "video": {
+                "yturl": "https://www.youtube.com/watch?v=Mvo2snJGhtM",
+                "duration": 10
+            },
+            "exerciseType": [
+                "cardio",
+                "hiit"
+            ],
+            "muscle": [
+                "quads"
+            ],
+            "difficulty": [
+                "easy"
+            ]
+        },
+        {
+            "video": {
+                "yturl": "https://www.youtube.com/watch?v=CBWQGb4LyAM",
+                "duration": 5
+            },
+            "exerciseType": [
+                "cardio",
+                "yoga"
+            ],
+            "muscle": [
+                "abs",
+                "back"
+            ],
+            "difficulty": [
+                "hard"
+            ]
+        },
+        {
+            "video": {
+                "yturl": "https://www.youtube.com/watch?v=tbbZBtdd20U",
+                "duration": 30
+            },
+            "exerciseType": [
+                "cardio",
+                "stretching"
+            ],
+            "muscle": [
+                "biceps"
+            ],
+            "difficulty": [
+                "hard"
+            ]
+        },
+        {
+            "video": {
+                "yturl": "https://www.youtube.com/watch?v=fyzveWI25aI",
+                "duration": 20
+            },
+            "exerciseType": [
+                "stretching"
+            ],
+            "muscle": [
+                "biceps"
+            ],
+            "difficulty": [
+                "hard"
+            ]
+        },
+        {
+            "video": {
+                "yturl": "https://www.youtube.com/watch?v=QNAOIXhNRJs",
+                "duration": 30
+            },
+            "exerciseType": [
+                "cardio"
+            ],
+            "muscle": [
+                "biceps",
+                "glutes"
+            ],
+            "difficulty": [
+                "easy"
+            ]
+        }
+    ]
+}
