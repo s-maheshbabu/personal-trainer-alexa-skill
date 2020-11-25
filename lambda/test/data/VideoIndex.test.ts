@@ -14,7 +14,7 @@ describe("Search for videos in the repository", () => {
         expect(urls).to.eql(expectedUrls);
     });
 
-    it('should be able to filter videos by duration. We should only return videos that are shorted than or equal to the requested duration.', async () => {
+    it('should be able to filter videos by duration. We should only return videos that are shorter than or equal to the requested duration.', async () => {
         const urls = await search('CARDIO', 10);
 
         const expectedUrls = ['https://url/2', 'https://url/3'];

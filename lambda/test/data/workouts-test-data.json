@@ -41,7 +41,8 @@
         ],
         "muscleGroups": [
             "ABDOMINALS",
-            "UPPER_BACK"
+            "UPPER_BACK",
+            "LOWER_BACK"
         ],
         "exerciseLevels": [
             "HARD"

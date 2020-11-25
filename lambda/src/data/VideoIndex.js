@@ -34,7 +34,7 @@ const search = async (exerciseType, duration, muscleGroups, exerciseLevel) => {
         .filter(function (candidateWorkout) {
             let isMatch = candidateWorkout.exerciseTypes.includes(exerciseType);
             if (duration) isMatch &= candidateWorkout.video.duration <= duration;
-            if (muscleGroups) isMatch &= candidateWorkout.muscleGroups.every(muscleGroup => muscleGroups.includes(muscleGroup));
+            if (muscleGroups) isMatch &= muscleGroups.every(muscleGroup => candidateWorkout.muscleGroups.includes(muscleGroup));
             if (exerciseLevel) isMatch &= candidateWorkout.exerciseLevels.includes(exerciseLevel);
             return isMatch;
         })
