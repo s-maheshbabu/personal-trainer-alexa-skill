@@ -35,14 +35,15 @@ const getPlayableVideo = async () => {
  * @param {*} muscleGroups an array of focus muscle groups for the workout. Can be empty.
  * @param {*} exerciseLevel easy, medium or difficult. Can be empty.
  */
-const search = async (exerciseType, duration, muscleGroups, exerciseLevel) => {
+const search = async (exerciseType: string, duration: number, muscleGroups: string[], exerciseLevel: string): Promise<string[]> => {
     if (!exerciseType) throw new Error('Exercise Type is a required argument.');
     if (muscleGroups && (!Array.isArray(muscleGroups) || muscleGroups.length == 0)) throw new Error(`Invalid muscle groups input: ${muscleGroups}`);
+
     const filteredWorkouts = await db
         .filter(function (candidateWorkout) {
             let isMatch = candidateWorkout.exerciseTypes.includes(exerciseType);
-            if (duration) isMatch &= candidateWorkout.video.duration <= duration;
-            if (muscleGroups) isMatch &= muscleGroups.every(muscleGroup => candidateWorkout.muscleGroups.includes(muscleGroup));
+            if (duration) isMatch &= +(candidateWorkout.video.duration <= duration);
+            if (muscleGroups) isMatch &= +(muscleGroups.every(muscleGroup => candidateWorkout.muscleGroups.includes(muscleGroup)));
             if (exerciseLevel) isMatch &= candidateWorkout.exerciseLevels.includes(exerciseLevel);
             return isMatch;
         })
