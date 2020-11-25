@@ -14,12 +14,7 @@ const skillSettings: SkillSettings = {
     debug: false,
 };
 
-const mockPlayableURL = "mock playable url";
-const mockChannelName = "mock channel name";
-const mockChannelUrl = "mock channel url";
-const mockVideoTitle = "mock video title";
-
-setupYtdlCoreMock('https://url/1');
+rewiremock('ytdl-core').dynamic();
 rewiremock.enable();
 import { handler as skillHandler } from '../../src/index';
 rewiremock.disable();
@@ -31,12 +26,26 @@ const intentName = 'PlayWorkoutVideoIntent';
 const workoutVideoViewDocument = require("../../src/response/display/WorkoutVideoView/document.json");
 const { VIDEO_PLAYER_COMPONENT_ID, VIDEO_PLAYER_VIEW_TOKEN } = require("../../src/constants/APL");
 
+const Duration_Key = "Duration";
+const ExerciseLevel_Key = "ExerciseLevel";
+const ExerciseType_Key = "ExerciseType";
+const MuscleGroup_Key = "MuscleGroups";
+
 describe("Playing the requested video on APL devices", () => {
-    describe('should be able to search and play the requested workout video', () => {
+    describe('should be able to search and play the requested workout video when there is just a single match', () => {
+        const intent = new IntentRequestBuilder(skillSettings, intentName).withInterfaces({ apl: true }).build();
+        const sessionAttributes = {
+            [ExerciseType_Key]: 'CARDIO',
+            [MuscleGroup_Key]: ['UPPER_BACK'],
+        }
+        injectSessionAttributes(sessionAttributes, intent);
+
+        const expectedVideo = 'https://url/3';
+        const mockValues = setupYtdlCoreMock(expectedVideo);
         alexaTest.test([
             {
-                request: new IntentRequestBuilder(skillSettings, intentName).withInterfaces({ apl: true }).build(),
-                says: `Here is ${mockVideoTitle} from ${mockChannelName}. Enjoy your workout.`,
+                request: intent,
+                says: `Here is ${mockValues.mockVideoTitle} from ${mockValues.mockChannelName}. Enjoy your workout.`,
                 shouldEndSession: undefined,
                 get renderDocument() {
                     return {
@@ -46,7 +55,7 @@ describe("Playing the requested video on APL devices", () => {
                         },
                         hasDataSources: {
                             workoutVideoDataSource: (ds: any) => {
-                                expect(ds.url).to.equal(mockPlayableURL);
+                                expect(ds.url).to.equal(mockValues.mockPlayableURL);
                                 expect(ds.videoPlayerId).to.equal(VIDEO_PLAYER_COMPONENT_ID);
 
                                 return true;
@@ -59,7 +68,23 @@ describe("Playing the requested video on APL devices", () => {
     });
 });
 
+// ask-sdk-test currently doesn't support injecting session attributes. Doing it here for now.
+function injectSessionAttributes(sessionAttributes, intent) {
+    intent.session = {
+        'new': true,
+        'sessionId': "sessionId",
+        'user': { 'userId': 'userId' },
+        'attributes': sessionAttributes,
+        'application': { 'applicationId': 'applicationId' },
+    };
+}
+
 function setupYtdlCoreMock(url) {
+    const mockChannelName = `mock-channel-name-for-${url}`;
+    const mockChannelUrl = `mock-channel-url-for-${url}`;
+    const mockPlayableURL = `mock-playable-url-for-${url}`;
+    const mockVideoTitle = `mock-video-title-for-${url}`;
+
     const videoInfo = { formats: [{ url: 'someUrl' }, { url: 'someOtherUrl' }], videoDetails: { author: { channel_url: mockChannelUrl, name: mockChannelName }, title: mockVideoTitle } };
     const ytdlGetInfoStub = sinon.stub();
     ytdlGetInfoStub
@@ -71,9 +96,17 @@ function setupYtdlCoreMock(url) {
         .withArgs(videoInfo.formats, { filter: 'audioandvideo', quality: 'highestvideo' }).onFirstCall().returns({ url: mockPlayableURL })
         .onSecondCall().throws("unexpected call to ytdl-core/chooseFormat");
 
-    rewiremock('ytdl-core')
+    const ytdlMock = rewiremock.getMock('ytdl-core');
+    ytdlMock
         .with({
             getInfo: ytdlGetInfoStub,
             chooseFormat: ytdlChooseFormatStub,
         });
+
+    return {
+        mockChannelName: mockChannelName,
+        mockChannelUrl: mockChannelUrl,
+        mockVideoTitle: mockVideoTitle,
+        mockPlayableURL: mockPlayableURL,
+    }
 }

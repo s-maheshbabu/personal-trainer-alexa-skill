@@ -13,8 +13,15 @@ module.exports = PlayWorkoutVideoIntentHandler = {
       && Alexa.getIntentName(handlerInput.requestEnvelope) === 'PlayWorkoutVideoIntent';
   },
   async handle(handlerInput) {
-    const playable = await videoIndex.getPlayableVideo();
-    console.log(`Video selected: ${playable}`);
+    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    const duration = sessionAttributes.Duration;
+    const exerciseLevel = sessionAttributes.ExerciseLevel;
+    // TODO: ExerciseType is a mandatory field and so assert on its presence.
+    const exerciseType = sessionAttributes.ExerciseType;
+    const muscleGroups = sessionAttributes.MuscleGroups;
+
+    const playable = await videoIndex.getPlayableVideo(exerciseType, duration, muscleGroups, exerciseLevel);
+    console.log(`Video selected: ${JSON.stringify(playable)}`);
 
     const speakOutput = `Here is ${playable.title} from ${playable.channelName}. Enjoy your workout.`;
     const aplDirective = {
