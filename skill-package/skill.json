@@ -115,7 +115,7 @@
           ],
           "keywords": [],
           "name": "Personal Trainer",
-          "summary": "Sample Short Description"
+          "summary": "A workout recommendation skill."
         }
       },
       "testingInstructions": "Sample Testing Instructions."
