@@ -4,13 +4,13 @@
             "yturl": "https://www.youtube.com/watch?v=-5ztdzyQkSQ",
             "duration": 10
         },
-        "exerciseType": [
+        "exerciseTypes": [
             "STRENGTH_TRAINING"
         ],
-        "muscle": [
+        "muscleGroups": [
             "ABDOMINALS"
         ],
-        "difficulty": [
+        "exerciseLevels": [
             "EASY"
         ]
     },
@@ -19,14 +19,14 @@
             "yturl": "https://www.youtube.com/watch?v=Mvo2snJGhtM",
             "duration": 10
         },
-        "exerciseType": [
+        "exerciseTypes": [
             "CARDIO",
             "HIIT"
         ],
-        "muscle": [
+        "muscleGroups": [
             "QUADRICEPS"
         ],
-        "difficulty": [
+        "exerciseLevels": [
             "EASY"
         ]
     },
@@ -35,15 +35,15 @@
             "yturl": "https://www.youtube.com/watch?v=CBWQGb4LyAM",
             "duration": 5
         },
-        "exerciseType": [
+        "exerciseTypes": [
             "CARDIO",
             "YOGA"
         ],
-        "muscle": [
+        "muscleGroups": [
             "ABDOMINALS",
             "UPPER_BACK"
         ],
-        "difficulty": [
+        "exerciseLevels": [
             "HARD"
         ]
     },
@@ -52,14 +52,14 @@
             "yturl": "https://www.youtube.com/watch?v=tbbZBtdd20U",
             "duration": 30
         },
-        "exerciseType": [
+        "exerciseTypes": [
             "CARDIO",
             "STRETCHING"
         ],
-        "muscle": [
+        "muscleGroups": [
             "BICEPS"
         ],
-        "difficulty": [
+        "exerciseLevels": [
             "MEDIUM"
         ]
     },
@@ -68,13 +68,13 @@
             "yturl": "https://www.youtube.com/watch?v=fyzveWI25aI",
             "duration": 20
         },
-        "exerciseType": [
+        "exerciseTypes": [
             "STRETCHING"
         ],
-        "muscle": [
+        "muscleGroups": [
             "BICEPS"
         ],
-        "difficulty": [
+        "exerciseLevels": [
             "HARD"
         ]
     },
@@ -83,14 +83,14 @@
             "yturl": "https://www.youtube.com/watch?v=QNAOIXhNRJs",
             "duration": 30
         },
-        "exerciseType": [
+        "exerciseTypes": [
             "CARDIO"
         ],
-        "muscle": [
+        "muscleGroups": [
             "BICEPS",
             "DELTOIDS"
         ],
-        "difficulty": [
+        "exerciseLevels": [
             "EASY"
         ]
     }

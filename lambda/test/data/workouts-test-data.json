@@ -1,0 +1,161 @@
+[
+    {
+        "video": {
+            "yturl": "https://url/1",
+            "duration": 10
+        },
+        "exerciseTypes": [
+            "STRENGTH_TRAINING"
+        ],
+        "muscleGroups": [
+            "ABDOMINALS"
+        ],
+        "exerciseLevels": [
+            "EASY"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://url/2",
+            "duration": 10
+        },
+        "exerciseTypes": [
+            "CARDIO",
+            "HIIT"
+        ],
+        "muscleGroups": [
+            "QUADRICEPS"
+        ],
+        "exerciseLevels": [
+            "EASY"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://url/3",
+            "duration": 5
+        },
+        "exerciseTypes": [
+            "CARDIO",
+            "YOGA"
+        ],
+        "muscleGroups": [
+            "ABDOMINALS",
+            "UPPER_BACK"
+        ],
+        "exerciseLevels": [
+            "HARD"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://url/4",
+            "duration": 30
+        },
+        "exerciseTypes": [
+            "CARDIO",
+            "STRETCHING"
+        ],
+        "muscleGroups": [
+            "BICEPS"
+        ],
+        "exerciseLevels": [
+            "MEDIUM"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://url/5",
+            "duration": 20
+        },
+        "exerciseTypes": [
+            "STRETCHING"
+        ],
+        "muscleGroups": [
+            "BICEPS"
+        ],
+        "exerciseLevels": [
+            "HARD"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://url/6",
+            "duration": 15
+        },
+        "exerciseTypes": [
+            "CARDIO"
+        ],
+        "muscleGroups": [
+            "BICEPS",
+            "DELTOIDS"
+        ],
+        "exerciseLevels": [
+            "EASY"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://url/7",
+            "duration": 12
+        },
+        "exerciseTypes": [
+            "YOGA"
+        ],
+        "muscleGroups": [
+            "GLUTES"
+        ],
+        "exerciseLevels": [
+            "MEDIUM"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://url/8",
+            "duration": 43
+        },
+        "exerciseTypes": [
+            "FUNCTIONAL_TRAINING"
+        ],
+        "muscleGroups": [
+            "DELTOIDS",
+            "LATISSIMUS_DORSI",
+            "LOWER_BACK"
+        ],
+        "exerciseLevels": [
+            "HARD"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://url/9",
+            "duration": 4
+        },
+        "exerciseTypes": [
+            "HIIT"
+        ],
+        "muscleGroups": [
+            "FOREARMS",
+            "TRICEPS"
+        ],
+        "exerciseLevels": [
+            "EASY"
+        ]
+    },
+    {
+        "video": {
+            "yturl": "https://url/10",
+            "duration": 75
+        },
+        "exerciseTypes": [
+            "STRENGTH_TRAINING"
+        ],
+        "muscleGroups": [
+            "PECTORALS",
+            "CALVES"
+        ],
+        "exerciseLevels": [
+            "EASY"
+        ]
+    }
+]

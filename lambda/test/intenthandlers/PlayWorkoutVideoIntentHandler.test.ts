@@ -19,7 +19,7 @@ const mockChannelName = "mock channel name";
 const mockChannelUrl = "mock channel url";
 const mockVideoTitle = "mock video title";
 
-setupYtdlCoreMock('https://www.youtube.com/watch?v=-5ztdzyQkSQ');
+setupYtdlCoreMock('https://url/1');
 rewiremock.enable();
 import { handler as skillHandler } from '../../src/index';
 rewiremock.disable();
@@ -31,7 +31,7 @@ const intentName = 'PlayWorkoutVideoIntent';
 const workoutVideoViewDocument = require("../../src/response/display/WorkoutVideoView/document.json");
 const { VIDEO_PLAYER_COMPONENT_ID, VIDEO_PLAYER_VIEW_TOKEN } = require("../../src/constants/APL");
 
-describe.only("Playing the requested video on APL devices", () => {
+describe("Playing the requested video on APL devices", () => {
     describe('should be able to search and play the requested workout video', () => {
         alexaTest.test([
             {
@@ -60,7 +60,7 @@ describe.only("Playing the requested video on APL devices", () => {
 });
 
 function setupYtdlCoreMock(url) {
-    const videoInfo = { author: { channel_url: mockChannelUrl, name: mockChannelName }, formats: [{ url: 'someUrl' }, { url: 'someOtherUrl' }], videoDetails: { title: mockVideoTitle } };
+    const videoInfo = { formats: [{ url: 'someUrl' }, { url: 'someOtherUrl' }], videoDetails: { author: { channel_url: mockChannelUrl, name: mockChannelName }, title: mockVideoTitle } };
     const ytdlGetInfoStub = sinon.stub();
     ytdlGetInfoStub
         .withArgs(url).onFirstCall().returns(videoInfo)

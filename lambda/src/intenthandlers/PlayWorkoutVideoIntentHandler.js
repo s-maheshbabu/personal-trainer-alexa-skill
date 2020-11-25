@@ -13,7 +13,6 @@ module.exports = PlayWorkoutVideoIntentHandler = {
       && Alexa.getIntentName(handlerInput.requestEnvelope) === 'PlayWorkoutVideoIntent';
   },
   async handle(handlerInput) {
-
     const playable = await videoIndex.getPlayableVideo();
     console.log(`Video selected: ${playable}`);
 
