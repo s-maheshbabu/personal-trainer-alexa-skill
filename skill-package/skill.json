@@ -2,6 +2,16 @@
   "manifest": {
     "apis": {
       "custom": {
+        "dialogManagement": {
+          "dialogManagers": [
+            {
+              "type": "AMAZON.Conversations"
+            }
+          ],
+          "sessionStartDelegationStrategy": {
+            "target": "AMAZON.Conversations"
+          }
+        },
         "endpoint": {
           "uri": "arn:aws:lambda:us-east-1:453616060722:function:da84aedf-f1e6-4ebd-a156-a404dcc8eff3:Release_0"
         },

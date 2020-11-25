@@ -2,11 +2,6 @@
   "interactionModel": {
     "languageModel": {
       "invocationName": "personal trainer",
-      "modelConfiguration": {
-        "fallbackIntentSensitivity": {
-          "level": "LOW"
-        }
-      },
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
@@ -103,7 +98,6 @@
       ],
       "types": [
         {
-          "name": "ExerciseLevel",
           "values": [
             {
               "id": "MEDIUM",
@@ -135,10 +129,10 @@
                 ]
               }
             }
-          ]
+          ],
+          "name": "ExerciseLevel"
         },
         {
-          "name": "ExerciseType",
           "values": [
             {
               "id": "CARDIO",
@@ -176,10 +170,10 @@
                 "value": "Yoga"
               }
             }
-          ]
+          ],
+          "name": "ExerciseType"
         },
         {
-          "name": "MuscleGroup",
           "values": [
             {
               "id": "LOWER_BACK",
@@ -318,19 +312,26 @@
                 ]
               }
             }
-          ]
+          ],
+          "name": "MuscleGroup"
         },
         {
-          "name": "StringLiteral",
           "values": [
             {
               "name": {
                 "value": "dummy value for api response literal property"
               }
             }
-          ]
+          ],
+          "name": "StringLiteral"
         }
-      ]
+      ],
+      "modelConfiguration": {
+        "fallbackIntentSensitivity": {
+          "level": "LOW"
+        }
+      }
     }
-  }
+  },
+  "version": "24"
 }
