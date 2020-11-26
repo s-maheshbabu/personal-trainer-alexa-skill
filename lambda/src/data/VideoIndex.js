@@ -14,9 +14,11 @@ db.defaults(videos).write();
 
 /**
  * Fetches a playable video stream and some metadata matching the given parameters.
+ * If no playable video is found, returns null.
  */
 const getPlayableVideo = async (exerciseType, duration, muscleGroups, exerciseLevel) => {
     const videoUrls = await search(exerciseType, duration, muscleGroups, exerciseLevel);
+    if (videoUrls.length === 0) return null;
 
     let info = await ytdl.getInfo(videoUrls[0]);
     let highQualityAudioVideoStream = ytdl.chooseFormat(info.formats, { filter: 'audioandvideo', quality: 'highestvideo' });

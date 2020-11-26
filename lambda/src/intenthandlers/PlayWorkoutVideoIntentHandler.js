@@ -21,6 +21,14 @@ module.exports = PlayWorkoutVideoIntentHandler = {
     const muscleGroups = sessionAttributes.MuscleGroups;
 
     const playable = await videoIndex.getPlayableVideo(exerciseType, duration, muscleGroups, exerciseLevel);
+    if (!playable) {
+      console.log(`No playable videos were found for the given criteria: ${JSON.stringify(sessionAttributes)}`);
+      return handlerInput.responseBuilder
+        .speak(`I am sorry but I do not have any videos matching your preferences. Good bye.`)
+        .withShouldEndSession(true)
+        .getResponse();
+    }
+
     console.log(`Video selected: ${JSON.stringify(playable)}`);
 
     const speakOutput = `Here is ${playable.title} from ${playable.channelName}. Enjoy your workout.`;

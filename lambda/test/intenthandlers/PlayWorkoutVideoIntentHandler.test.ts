@@ -66,6 +66,23 @@ describe("Playing the requested video on APL devices", () => {
             },
         ]);
     });
+
+    describe.only('should render an appropriate error message when there are no playable videos matching the given criteria', () => {
+        const intent = new IntentRequestBuilder(skillSettings, intentName).withInterfaces({ apl: true }).build();
+        const sessionAttributes = {
+            [ExerciseType_Key]: 'YOGA',
+            [MuscleGroup_Key]: ['BICEPS'],
+        }
+        injectSessionAttributes(sessionAttributes, intent);
+
+        alexaTest.test([
+            {
+                request: intent,
+                says: `I am sorry but I do not have any videos matching your preferences. Good bye.`,
+                shouldEndSession: true,
+            },
+        ]);
+    });
 });
 
 // ask-sdk-test currently doesn't support injecting session attributes. Doing it here for now.
