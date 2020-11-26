@@ -1,4 +1,5 @@
 ask-resources.json
 .ask
+lambda/dist
 lambda/node_modules
 .vscode
