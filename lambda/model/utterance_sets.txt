@@ -17,36 +17,25 @@ start a workout
 start an exercise
 start training
 
-SpecifyExerciseType:
-{ExerciseType}
-{ExerciseType} exercise
-{ExerciseType} routine
-{ExerciseType} videos
-{ExerciseType} workout
-a {ExerciseType} routine
-a {ExerciseType} workout
-can you help with {ExerciseType} training
-find me an {ExerciseType} workout
-help me with {ExerciseType} exercises
-how about {ExerciseType}
-i am planning to do a {ExerciseType} routine
-lets go with {ExerciseType}
-looking to do some {ExerciseType} training
-
 SpecifyDuration:
-about {Duration}
-i have about {Duration} minutes
-a little under {Duration}
-lets keep it under {Duration} minutes
-approximately {Duration}
+{Duration}
+{Duration} minute exercise
 {Duration} minutes
-i can workout for {Duration}
+a {Duration} minute exercise session works for me
+a {Duration} minute session
+a {Duration} minute workout
+a little under {Duration}
+a session of {Duration}
+about {Duration}
+approximately {Duration}
+between ten to {Duration} minutes
+exactly {Duration}
 find me something that runs for {Duration} minutes
 how about a {Duration} workout video
-a {Duration} minute exercise session works for me
 i am looking for a session that lasts {Duration} minutes
-exactly {Duration}
-between ten to {Duration} minutes
+i can workout for {Duration}
+i have about {Duration} minutes
+lets keep it under {Duration} minutes
 
 SpecifyExerciseLevel:
 {ExerciseLevel}
@@ -62,26 +51,61 @@ make it {ExerciseLevel}
 probably an {ExerciseLevel} routine
 
 SpecifyMuscleGroups:
+StartWorkout_WithMuscleGroups:
 {MuscleGroups}
+{MuscleGroups} muscles
 {MuscleGroups} please
 a {MuscleGroups} routine
 a {MuscleGroups} workouts
 an exercise for {MuscleGroups}
+find me an exercise video for {MuscleGroups} muscles
 focus on {MuscleGroups}
 how about {MuscleGroups}
 i want to work on {MuscleGroups}
 lets do {MuscleGroups}
+look up works for {MuscleGroups}
 primarily {MuscleGroups}
+search play a video focusing on {MuscleGroups}
+start an {MuscleGroups} workout
+
+SpecifyDurationExerciseType:
+StartWorkout_WithDurationExerciseType:
+{Duration} minute {ExerciseType} session
+{ExerciseType} and at most {Duration} minutes
+{ExerciseType} exercise that lasts for about {Duration}
+{ExerciseType} for {Duration} minutes
+{ExerciseType} under {Duration} minutes
+a {Duration} session of {ExerciseType}
+find a {Duration} minute {ExerciseType} workout
+lets do a {Duration} minute {ExerciseType} exercise
+play a {ExerciseType} exercise that lasts for about {Duration}
+start a {Duration} minute {ExerciseType} session
+start a {Duration} minute session of {ExerciseType}
 
 StartWorkout_WithExerciseType:
+SpecifyExerciseType:
+{ExerciseType}
+{ExerciseType} exercise
+{ExerciseType} routine
+{ExerciseType} videos
+{ExerciseType} workout
+a {ExerciseType} routine
+a {ExerciseType} workout
+can you help with {ExerciseType} training
 find a {ExerciseType} training video
 find a {ExerciseType} workout video
 find an {ExerciseType} exercise video
 find me {ExerciseType} exercise videos
+find me an {ExerciseType} workout
 give me a follow along {ExerciseType} workout video
 give me a random {ExerciseType} workout
+help me with {ExerciseType} exercises
 help me with {ExerciseType} workout videos
+how about {ExerciseType}
+i am planning to do a {ExerciseType} routine
 lets get started with a {ExerciseType} workout
+lets go with {ExerciseType}
+looking to do some {ExerciseType} training
 play a {ExerciseType} workout video
 play some {ExerciseType} workouts
 search for {ExerciseType} workouts
