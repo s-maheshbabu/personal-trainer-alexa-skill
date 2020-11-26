@@ -28,11 +28,5 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         IntentReflectorHandler,
     )
-    .addRequestInterceptors(
-        LogRequestInterceptor,
-    )
-    .addResponseInterceptors(
-        LogResponseInterceptor,
-    )
     .withCustomUserAgent('sample/personal-trainer/v1.2')
     .lambda();
