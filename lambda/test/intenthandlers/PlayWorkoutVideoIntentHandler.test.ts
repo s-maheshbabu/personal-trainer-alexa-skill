@@ -67,7 +67,7 @@ describe("Playing the requested video on APL devices", () => {
         ]);
     });
 
-    describe.only('should render an appropriate error message when there are no playable videos matching the given criteria', () => {
+    describe('should render an appropriate error message when there are no playable videos matching the given criteria', () => {
         const intent = new IntentRequestBuilder(skillSettings, intentName).withInterfaces({ apl: true }).build();
         const sessionAttributes = {
             [ExerciseType_Key]: 'YOGA',

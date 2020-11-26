@@ -1,9 +1,17 @@
+const Alexa = require('ask-sdk-core');
+
 import { fail } from 'assert';
 import { assert, expect } from 'chai';
+const sinon = require("sinon");
 
 import rewire = require('rewire');
 
+import { rewiremock } from '../rewiremock';
+rewiremock('ytdl-core').dynamic();
+rewiremock.enable();
 const unitUnderTest = rewire("../../src/data/VideoIndex");
+rewiremock.disable();
+
 const search = unitUnderTest.__get__('search');
 
 describe("Search for videos in the repository", () => {
@@ -69,5 +77,39 @@ describe("Search for videos in the repository", () => {
                 expect(error.message).to.eql(`Invalid muscle groups input: ${invalidMuscleGroupsInput}`);
             }
         }
+    });
+});
+
+describe("Escape SSML characters. The video metadata is out of our control and can contain ssml-invalid characters like &. So we need to clean it up.", () => {
+    it('should escape invalid characters in the video title and channel name because they might be spoken somewhere down the line.', async () => {
+        const expectedUrl = 'https://url/3';
+
+        const mockChannelName = `mock & channel with & invalid characters`;
+        const mockPlayableURL = `mock-playable-url`;
+        const mockVideoTitle = `mock & video title with & invalid characters`;
+
+        const videoInfo = { formats: [{ url: 'someUrl' }, { url: 'someOtherUrl' }], videoDetails: { author: { name: mockChannelName }, title: mockVideoTitle } };
+        const ytdlGetInfoStub = sinon.stub();
+        ytdlGetInfoStub
+            .withArgs(expectedUrl).onFirstCall().returns(videoInfo)
+            .onSecondCall().throws("unexpected call to ytdl-core/getInfo");
+
+        const ytdlChooseFormatStub = sinon.stub();
+        ytdlChooseFormatStub
+            .withArgs(videoInfo.formats, { filter: 'audioandvideo', quality: 'highestvideo' }).onFirstCall().returns({ url: mockPlayableURL })
+            .onSecondCall().throws("unexpected call to ytdl-core/chooseFormat");
+
+        const ytdlMock = rewiremock.getMock('ytdl-core');
+        ytdlMock
+            .with({
+                getInfo: ytdlGetInfoStub,
+                chooseFormat: ytdlChooseFormatStub,
+            });
+
+        const playable = await unitUnderTest.getPlayableVideo('YOGA', undefined, ['ABDOMINALS', 'UPPER_BACK']);
+
+        expect(playable.channelName).to.eql(Alexa.escapeXmlCharacters(mockChannelName));
+        expect(playable.title).to.eql(Alexa.escapeXmlCharacters(mockVideoTitle));
+        expect(playable.url).to.eql(Alexa.escapeXmlCharacters(mockPlayableURL));
     });
 });

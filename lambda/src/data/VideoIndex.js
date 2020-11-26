@@ -1,3 +1,4 @@
+const Alexa = require('ask-sdk-core');
 const ytdl = require('ytdl-core');
 
 const videos = (() => {
@@ -24,8 +25,8 @@ const getPlayableVideo = async (exerciseType, duration, muscleGroups, exerciseLe
     let highQualityAudioVideoStream = ytdl.chooseFormat(info.formats, { filter: 'audioandvideo', quality: 'highestvideo' });
 
     return {
-        channelName: info.videoDetails.author.name,
-        title: info.videoDetails.title,
+        channelName: Alexa.escapeXmlCharacters(info.videoDetails.author.name),
+        title: Alexa.escapeXmlCharacters(info.videoDetails.title),
         url: highQualityAudioVideoStream.url,
     }
 }
