@@ -1,0 +1,69 @@
+StartWorkout:
+
+find a training video
+find a workout video
+find an exercise video
+find me exercise videos
+give me a follow along workout video
+give me a random workout
+help me with workout videos
+lets get started
+lets get started with a workout
+play a workout video
+play some workouts
+search for workouts
+show me a video
+show me a workout
+start a workout
+start an exercise
+start training
+
+SpecifyExerciseType
+
+{ExerciseType}
+{ExerciseType} exercise
+{ExerciseType} routine
+{ExerciseType} videos
+{ExerciseType} workout
+a {ExerciseType} routine
+a {ExerciseType} workout
+can you help with {ExerciseType} training
+find me an {ExerciseType} workout
+help me with {ExerciseType} exercises
+how about {ExerciseType}
+i am planning to do a {ExerciseType} routine
+lets go with {ExerciseType}
+looking to do some {ExerciseType} training
+
+SpecifyDuration
+
+about {Duration}
+i have about {Duration} minutes
+a little under {Duration}
+lets keep it under {Duration} minutes
+approximately {Duration}
+{Duration} minutes
+i can workout for {Duration}
+find me something that runs for {Duration} minutes
+how about a {Duration} workout video
+a {Duration} minute exercise session works for me
+i am looking for a session that lasts {Duration} minutes
+exactly {Duration}
+between ten to {Duration} minutes
+
+SpecifyExerciseLevel
+
+{ExerciseLevel}
+{ExerciseLevel} exercise
+a {ExerciseLevel} exercise routine
+an {ExerciseLevel} one
+i am looking for an {ExerciseLevel} workout
+i can do a {ExerciseLevel}
+just an {ExerciseLevel} workout for me
+keep it {ExerciseLevel}
+lets keep it {ExerciseLevel}
+make it {ExerciseLevel}
+probably an {ExerciseLevel} routine
+
+SpecifyMuscleGroups
+
