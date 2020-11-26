@@ -1,5 +1,5 @@
 const Alexa = require('ask-sdk-core');
-const skill_model = require("../../skill-package/interactionModels/custom/en-US");
+const skill_model = require("./model/en-US");
 
 /**
  * Helper method to get API arguments from the request envelope.
