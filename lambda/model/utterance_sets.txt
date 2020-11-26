@@ -1,5 +1,4 @@
 StartWorkout:
-
 find a training video
 find a workout video
 find an exercise video
@@ -18,8 +17,7 @@ start a workout
 start an exercise
 start training
 
-SpecifyExerciseType
-
+SpecifyExerciseType:
 {ExerciseType}
 {ExerciseType} exercise
 {ExerciseType} routine
@@ -35,8 +33,7 @@ i am planning to do a {ExerciseType} routine
 lets go with {ExerciseType}
 looking to do some {ExerciseType} training
 
-SpecifyDuration
-
+SpecifyDuration:
 about {Duration}
 i have about {Duration} minutes
 a little under {Duration}
@@ -51,8 +48,7 @@ i am looking for a session that lasts {Duration} minutes
 exactly {Duration}
 between ten to {Duration} minutes
 
-SpecifyExerciseLevel
-
+SpecifyExerciseLevel:
 {ExerciseLevel}
 {ExerciseLevel} exercise
 a {ExerciseLevel} exercise routine
@@ -65,5 +61,39 @@ lets keep it {ExerciseLevel}
 make it {ExerciseLevel}
 probably an {ExerciseLevel} routine
 
-SpecifyMuscleGroups
+SpecifyMuscleGroups:
+{MuscleGroups}
+{MuscleGroups} please
+a {MuscleGroups} routine
+a {MuscleGroups} workouts
+an exercise for {MuscleGroups}
+focus on {MuscleGroups}
+how about {MuscleGroups}
+i want to work on {MuscleGroups}
+lets do {MuscleGroups}
+primarily {MuscleGroups}
 
+StartWorkout_WithExerciseType:
+find a {ExerciseType} training video
+find a {ExerciseType} workout video
+find an {ExerciseType} exercise video
+find me {ExerciseType} exercise videos
+give me a follow along {ExerciseType} workout video
+give me a random {ExerciseType} workout
+help me with {ExerciseType} workout videos
+lets get started with a {ExerciseType} workout
+play a {ExerciseType} workout video
+play some {ExerciseType} workouts
+search for {ExerciseType} workouts
+show me a {ExerciseType} video
+show me a {ExerciseType} workout
+start {ExerciseType} training
+start a {ExerciseType} workout
+start an {ExerciseType} exercise
+
+StartWorkout_WithAllParameters:
+find a {ExerciseLevel} {ExerciseType} for {MuscleGroups} that is about {Duration} long
+how about {MuscleGroups} {ExerciseType} training for {Duration} and lets keep it {ExerciseLevel}
+i want a {ExerciseType} exercise focusing on {MuscleGroups} muscles that is {ExerciseLevel} and under {Duration}
+search for {Duration} minute long {MuscleGroups} {ExerciseType} workouts that are {ExerciseLevel}
+start an {ExerciseLevel} {Duration} {ExerciseType} workout for {MuscleGroups}
