@@ -1,4 +1,6 @@
 const Alexa = require('ask-sdk-core');
+const { hasIn } = require('immutable');
+
 const skill_model = require("../model/en-US");
 
 /**
@@ -14,6 +16,8 @@ const getApiArguments = (handlerInput) => {
 }
 
 const getFirstResolvedEntityId = (element) => {
+    if (!hasIn(element, ['resolutions'])) return null;
+
     const [firstResolution = {}] = element.resolutions.resolutionsPerAuthority || [];
     return firstResolution && firstResolution.status.code === 'ER_SUCCESS_MATCH'
         ? firstResolution.values[0].value.id
@@ -82,12 +86,13 @@ const slotSynonymsToIdMap = (slotTypeName) => {
             const slotValues = slotTypes[i].values;
             slotValues.forEach(element => {
                 const id = element.id;
+                synonymsToIdMap.set(element.name.value, id);
+
                 const synonyms = element.name.synonyms;
-                synonyms.forEach(synonym => synonymsToIdMap.set(synonym, id));
+                if (Array.isArray(synonyms)) synonyms.forEach(synonym => synonymsToIdMap.set(synonym, id));
             });
         }
     }
-
     return synonymsToIdMap;
 };
 
