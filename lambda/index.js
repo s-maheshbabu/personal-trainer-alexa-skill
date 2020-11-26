@@ -7,7 +7,7 @@ const Alexa = require('ask-sdk-core');
  * */
 const IntentReflectorHandler = {
     canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest';
+        return true;
     },
     handle(handlerInput) {
         const intentName = Alexa.getIntentName(handlerInput.requestEnvelope);
