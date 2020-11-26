@@ -1,3 +1,4 @@
+const parse = require('iso8601-duration').parse;
 const utilities = require("utilities");
 
 module.exports = StartWorkoutAPI = {
@@ -11,12 +12,20 @@ module.exports = StartWorkoutAPI = {
         const { attributesManager } = handlerInput;
         const sessionAttributes = attributesManager.getSessionAttributes();
 
-        if (apiSlots.Duration) sessionAttributes.Duration = utilities.getFirstResolvedEntityId(apiSlots.Duration);
+        if (apiSlots.Duration) {
+            try {
+                const parsedDuration = parse(utilities.getSlotValue(apiSlots.Duration));
+                sessionAttributes.Duration = parsedDuration.minutes;
+            } catch (error) {
+                console.log(`WARN: Failed to parse the duration slot: ${apiSlots.Duration}. Ignoring the slot.`);
+            }
+        }
         if (apiSlots.ExerciseLevel) sessionAttributes.ExerciseLevel = utilities.getFirstResolvedEntityId(apiSlots.ExerciseLevel);
         // TODO: ExerciseType is a mandatory field and so assert on its presence.
         if (apiSlots.ExerciseType) sessionAttributes.ExerciseType = utilities.getFirstResolvedEntityId(apiSlots.ExerciseType);
         if (apiArguments.MuscleGroups) sessionAttributes.MuscleGroups = resolveEntities(apiArguments.MuscleGroups);
 
+        console.log("Attr" + JSON.stringify(sessionAttributes))
         // Sticking the search filters in context just for testing purposes.
         const { context } = handlerInput;
         if (context) {

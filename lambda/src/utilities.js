@@ -48,6 +48,17 @@ const getSlots = (handlerInput) => {
 }
 
 /**
+ * Helper method to obtain the simple slot value from a given slot.
+ */
+const getSlotValue = (slot) => {
+    return Alexa.getSimpleSlotValues(slot)
+        .map(
+            (slotValue) => `${slotValue.value}`
+        )
+        .join(' ');
+}
+
+/**
  * Helper method to find if a request is for a certain apiName.
  */
 const isApiRequest = (handlerInput, apiName) => {
@@ -101,6 +112,7 @@ module.exports = {
     getFirstResolvedEntityId: getFirstResolvedEntityId,
     getIntentName: getIntentName,
     getSlots: getSlots,
+    getSlotValue: getSlotValue,
     isApiRequest: isApiRequest,
     isIntent: isIntent,
     slotSynonymsToIdMap: slotSynonymsToIdMap,

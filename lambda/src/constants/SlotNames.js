@@ -1,4 +1,5 @@
 const slotnames = Object.freeze({
+    Duration: "Duration",
     MuscleGroup: "MuscleGroup",
 });
 
