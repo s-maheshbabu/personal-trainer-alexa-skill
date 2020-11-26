@@ -2,6 +2,11 @@
   "interactionModel": {
     "languageModel": {
       "invocationName": "personal trainer",
+      "modelConfiguration": {
+        "fallbackIntentSensitivity": {
+          "level": "LOW"
+        }
+      },
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
@@ -98,12 +103,14 @@
       ],
       "types": [
         {
+          "name": "ExerciseLevel",
           "values": [
             {
               "id": "MEDIUM",
               "name": {
-                "value": "Medium",
+                "value": "medium",
                 "synonyms": [
+                  "intermediate",
                   "mid level"
                 ]
               }
@@ -111,8 +118,9 @@
             {
               "id": "EASY",
               "name": {
-                "value": "Easy",
+                "value": "easy",
                 "synonyms": [
+                  "light",
                   "beginners",
                   "easiest"
                 ]
@@ -121,64 +129,71 @@
             {
               "id": "HARD",
               "name": {
-                "value": "Hard",
+                "value": "hard",
                 "synonyms": [
+                  "heavy",
                   "difficult",
                   "hardcore",
                   "tough"
                 ]
               }
             }
-          ],
-          "name": "ExerciseLevel"
+          ]
         },
         {
+          "name": "ExerciseType",
           "values": [
+            {
+              "id": "PILATES",
+              "name": {
+                "value": "pilates"
+              }
+            },
             {
               "id": "CARDIO",
               "name": {
-                "value": "Cardio"
+                "value": "cardio"
               }
             },
             {
               "id": "FUNCTIONAL_TRAINING",
               "name": {
-                "value": "Functional Training"
+                "value": "functional Training"
               }
             },
             {
               "id": "HIIT",
               "name": {
-                "value": "HIIT"
+                "value": "hiit"
               }
             },
             {
               "id": "STRENGTH_TRAINING",
               "name": {
-                "value": "Strength Training"
+                "value": "strength training"
               }
             },
             {
               "id": "STRETCHING",
               "name": {
-                "value": "Stretching"
+                "value": "stretching"
               }
             },
             {
               "id": "YOGA",
               "name": {
-                "value": "Yoga"
+                "value": "yoga"
               }
             }
-          ],
-          "name": "ExerciseType"
+          ]
         },
         {
+          "name": "MuscleGroup",
           "values": [
             {
               "id": "LOWER_BACK",
               "name": {
-                "value": "Lower Back",
+                "value": "lower back",
                 "synonyms": [
                   "lower back"
                 ]
@@ -187,7 +202,7 @@
             {
               "id": "UPPER_BACK",
               "name": {
-                "value": "Upper Back",
+                "value": "upper back",
                 "synonyms": [
                   "back"
                 ]
@@ -196,7 +211,7 @@
             {
               "id": "LATISSIMUS_DORSI",
               "name": {
-                "value": "Latissimus Dorsi",
+                "value": "latissimus dorsi",
                 "synonyms": [
                   "lats"
                 ]
@@ -205,7 +220,7 @@
             {
               "id": "TRAPEZIUS",
               "name": {
-                "value": "Trapezius",
+                "value": "trapezius",
                 "synonyms": [
                   "neck muscles",
                   "neck",
@@ -216,7 +231,7 @@
             {
               "id": "DELTOIDS",
               "name": {
-                "value": "Deltoids",
+                "value": "deltoids",
                 "synonyms": [
                   "front deltoid",
                   "posterior deltoid",
@@ -230,7 +245,7 @@
             {
               "id": "FOREARMS",
               "name": {
-                "value": "Forearms",
+                "value": "forearms",
                 "synonyms": [
                   "lower arms"
                 ]
@@ -239,13 +254,16 @@
             {
               "id": "TRICEPS",
               "name": {
-                "value": "Triceps"
+                "value": "triceps",
+                "synonyms": [
+                  "triceps brachii"
+                ]
               }
             },
             {
               "id": "BICEPS",
               "name": {
-                "value": "Biceps",
+                "value": "biceps",
                 "synonyms": [
                   "arms",
                   "upper arms"
@@ -255,7 +273,7 @@
             {
               "id": "ABDOMINALS",
               "name": {
-                "value": "Abdominals",
+                "value": "abdominals",
                 "synonyms": [
                   "abs",
                   "belly",
@@ -267,7 +285,7 @@
             {
               "id": "PECTORALS",
               "name": {
-                "value": "Pectorals",
+                "value": "pectorals",
                 "synonyms": [
                   "breast",
                   "chest",
@@ -278,7 +296,7 @@
             {
               "id": "CALVES",
               "name": {
-                "value": "Calves",
+                "value": "calves",
                 "synonyms": [
                   "calf muscle",
                   "calf",
@@ -290,7 +308,7 @@
             {
               "id": "HAMSTRINGS",
               "name": {
-                "value": "Hamstrings",
+                "value": "hamstrings",
                 "synonyms": [
                   "back of legs",
                   "hamstring muscle",
@@ -301,37 +319,30 @@
             {
               "id": "QUADRICEPS",
               "name": {
-                "value": "Quadriceps",
+                "value": "quadriceps",
                 "synonyms": [
+                  "quads",
+                  "thighs",
                   "quad muscle",
-                  "Quads",
                   "thigh muscle",
-                  "Thighs",
                   "upper leg",
                   "upper legs"
                 ]
               }
             }
-          ],
-          "name": "MuscleGroup"
+          ]
         },
         {
+          "name": "StringLiteral",
           "values": [
             {
               "name": {
                 "value": "dummy value for api response literal property"
               }
             }
-          ],
-          "name": "StringLiteral"
+          ]
         }
-      ],
-      "modelConfiguration": {
-        "fallbackIntentSensitivity": {
-          "level": "LOW"
-        }
-      }
+      ]
     }
-  },
-  "version": "26"
+  }
 }
