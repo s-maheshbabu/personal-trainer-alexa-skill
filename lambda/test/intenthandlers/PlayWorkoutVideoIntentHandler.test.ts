@@ -1,8 +1,6 @@
 import { expect } from 'chai';
 const sinon = require("sinon");
 
-import { rewiremock } from '../rewiremock';
-
 import * as deepEqual from 'deep-equal';
 
 import { AlexaTest, IntentRequestBuilder, SkillSettings } from 'ask-sdk-test';
@@ -14,10 +12,8 @@ const skillSettings: SkillSettings = {
     debug: false,
 };
 
-rewiremock('ytdl-core').dynamic();
-rewiremock.enable();
+import { rewiremock } from '../rewiremock';
 import { handler as skillHandler } from '../../src/index';
-rewiremock.disable();
 
 const alexaTest = new AlexaTest(skillHandler, skillSettings);
 
@@ -31,37 +27,115 @@ const ExerciseLevel_Key = "ExerciseLevel";
 const ExerciseType_Key = "ExerciseType";
 const MuscleGroup_Key = "MuscleGroups";
 
-describe("Playing the requested video on APL devices", () => {
-    describe('should be able to search and play the requested workout video when there is just a single match', () => {
-        const expectedVideo = 'https://url/3';
-        const mockValues = setupYtdlCoreMock(expectedVideo);
-        alexaTest.test([
-            {
-                request: new IntentRequestBuilder(skillSettings, intentName).withInterfaces({ apl: true }).build(),
-                withSessionAttributes: {
-                    [ExerciseType_Key]: 'CARDIO',
-                    [MuscleGroup_Key]: ['UPPER_BACK'],
-                },
-                says: `Here is ${mockValues.mockVideoTitle} from ${mockValues.mockChannelName}. Enjoy your workout.`,
-                shouldEndSession: undefined,
-                get renderDocument() {
-                    return {
-                        token: VIDEO_PLAYER_VIEW_TOKEN,
-                        document: (doc: any) => {
-                            return deepEqual(doc, workoutVideoViewDocument);
-                        },
-                        hasDataSources: {
-                            workoutVideoDataSource: (ds: any) => {
-                                expect(ds.url).to.equal(mockValues.mockPlayableURL);
-                                expect(ds.videoPlayerId).to.equal(VIDEO_PLAYER_COMPONENT_ID);
 
-                                return true;
-                            },
+describe("Playing the requested video on APL devices", () => {
+    describe.only('should be able to search and play the requested workout video for different sets of parameters.', () => {
+        const testcases: ({ [key: string]: any; } | string)[] = [
+            // search by exercise type and duration
+            [{
+                [Duration_Key]: 5,
+                [ExerciseType_Key]: 'CARDIO',
+            }, 'https://url/3'
+            ],
+            // search by exercise type and duration and muscle group
+            [{
+                [Duration_Key]: 17,
+                [ExerciseType_Key]: 'CARDIO',
+                [MuscleGroup_Key]: ['BICEPS'],
+            }, 'https://url/6'
+            ],
+            // search by exercise type and duration and exercise level
+            [{
+                [Duration_Key]: 20,
+                [ExerciseLevel_Key]: 'HARD',
+                [ExerciseType_Key]: 'STRETCHING',
+            }, 'https://url/5'
+            ],
+            // search by exercise type and duration and exercise level and muscle group
+            [{
+                [Duration_Key]: 32,
+                [ExerciseLevel_Key]: 'MEDIUM',
+                [ExerciseType_Key]: 'CARDIO',
+                [MuscleGroup_Key]: ['BICEPS'],
+            }, 'https://url/4'
+            ],
+            // search by exercise type and exercise level
+            [{
+                [ExerciseLevel_Key]: 'HARD',
+                [ExerciseType_Key]: 'CARDIO',
+            }, 'https://url/3'
+            ],
+            // search by exercise type and exercise level and muscle group
+            [{
+                [ExerciseLevel_Key]: 'EASY',
+                [ExerciseType_Key]: 'STRENGTH_TRAINING',
+                [MuscleGroup_Key]: ['PECTORALS'],
+            }, 'https://url/10'
+            ],
+            // search by exercise type and muscle group
+            [{
+                [ExerciseType_Key]: 'CARDIO',
+                [MuscleGroup_Key]: ['BICEPS'],
+            }, 'https://url/4'
+            ],
+            // the case where multiple muscle groups are given as input
+            [{
+                [ExerciseLevel_Key]: 'EASY',
+                [ExerciseType_Key]: 'HIIT',
+                [MuscleGroup_Key]: ['FOREARMS', 'TRICEPS'],
+            }, 'https://url/9'
+            ],
+            // the case where there is only one matching video
+            [{
+                [Duration_Key]: 10,
+                [ExerciseLevel_Key]: 'HARD',
+                [ExerciseType_Key]: 'CARDIO',
+                [MuscleGroup_Key]: ['UPPER_BACK'],
+            }, 'https://url/3'
+            ],
+        ];
+
+        for (let index = 0; index < testcases.length; index++) {
+            const sessionAttributes = testcases[index][0];
+            const expectedVideo = testcases[index][1];
+
+            rewiremock.inScope(() => {
+                rewiremock('ytdl-core').dynamic();
+                rewiremock.enable();
+                const skillHandler = require('../../src/index').handler;
+                rewiremock.disable();
+
+                const mockValues = setupYtdlCoreMock(expectedVideo);
+                const alexaTest = new AlexaTest(skillHandler, skillSettings);
+
+                alexaTest.test([
+                    {
+                        request: new IntentRequestBuilder(skillSettings, intentName).withInterfaces({ apl: true }).build(),
+                        withSessionAttributes: sessionAttributes,
+                        says: `Here is ${mockValues.mockVideoTitle} from ${mockValues.mockChannelName}. Enjoy your workout.`,
+                        shouldEndSession: undefined,
+                        get renderDocument() {
+                            return {
+                                token: VIDEO_PLAYER_VIEW_TOKEN,
+                                document: (doc: any) => {
+                                    return deepEqual(doc, workoutVideoViewDocument);
+                                },
+                                hasDataSources: {
+                                    workoutVideoDataSource: (ds: any) => {
+                                        expect(ds.url).to.equal(mockValues.mockPlayableURL);
+                                        expect(ds.videoPlayerId).to.equal(VIDEO_PLAYER_COMPONENT_ID);
+
+                                        return true;
+                                    },
+                                },
+                            }
                         },
-                    }
-                },
-            },
-        ]);
+                    },
+                ]);
+            });
+
+
+        }
     });
 
     describe('should render an appropriate error message when there are no playable videos matching the given criteria', () => {
@@ -78,6 +152,7 @@ describe("Playing the requested video on APL devices", () => {
         ]);
     });
 });
+
 
 function setupYtdlCoreMock(url) {
     const mockChannelName = `mock-channel-name-for-${url}`;
