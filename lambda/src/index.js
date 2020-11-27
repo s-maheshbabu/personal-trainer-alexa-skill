@@ -16,7 +16,6 @@ const FallbackIntentHandler = require("intenthandlers/FallbackIntentHandler");
 const HelpIntentHandler = require("intenthandlers/HelpIntentHandler");
 const PlaybackControlIntentsHandler = require("intenthandlers/PlaybackControlIntentsHandler");
 const PlayWorkoutVideoIntentHandler = require("intenthandlers/PlayWorkoutVideoIntentHandler");
-const UnsupportedPlaybackControlsIntentHandler = require("intenthandlers/UnsupportedPlaybackControlsIntentHandler");
 
 const ErrorHandler = require("errors/ErrorHandler");
 
@@ -72,7 +71,6 @@ exports.handler = Alexa.SkillBuilders.custom()
         LaunchRequestHandler,
         PlaybackControlIntentsHandler,
         PlayWorkoutVideoIntentHandler,
-        UnsupportedPlaybackControlsIntentHandler,
 
         StartWorkoutAPI,
 
