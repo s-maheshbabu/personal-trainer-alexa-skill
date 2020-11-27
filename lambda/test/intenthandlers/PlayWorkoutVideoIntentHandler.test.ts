@@ -153,6 +153,37 @@ describe("Playing the requested video on APL devices", () => {
     });
 });
 
+describe("non-APL devices", () => {
+    describe.only('should render a prompt to indicate that the video cannot be played and that a link will be posted on the companion app.', () => {
+        const sessionAttributes = {
+            [ExerciseLevel_Key]: 'EASY',
+            [ExerciseType_Key]: 'HIIT',
+            [MuscleGroup_Key]: ['FOREARMS', 'TRICEPS'],
+        };
+        const expectedVideo = 'https://url/9';
+
+        rewiremock.inScope(() => {
+            rewiremock('ytdl-core').dynamic();
+            rewiremock.enable();
+            const skillHandler = require('../../src/index').handler;
+            rewiremock.disable();
+
+            const mockValues = setupYtdlCoreMock(expectedVideo);
+            const alexaTest = new AlexaTest(skillHandler, skillSettings);
+
+            alexaTest.test([
+                {
+                    request: new IntentRequestBuilder(skillSettings, intentName).withInterfaces({ apl: false }).build(),
+                    withSessionAttributes: sessionAttributes,
+                    says: `I found ${mockValues.mockVideoTitle} from ${mockValues.mockChannelName}. I put a link to the video in the Alexa app. By the way, try using the skill on Alexa devices with screen, like the Echo Show or Fire TV. I can play the video too on those devices.`,
+                    shouldEndSession: true,
+                    hasCardTitle: mockValues.mockVideoTitle,
+                    hasCardContent: expectedVideo,
+                },
+            ]);
+        });
+    });
+});
 
 function setupYtdlCoreMock(url) {
     const mockChannelName = `mock-channel-name-for-${url}`;

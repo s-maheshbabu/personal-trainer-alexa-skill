@@ -26,6 +26,7 @@ const getPlayableVideo = async (exerciseType, duration, muscleGroups, exerciseLe
 
     return {
         channelName: Alexa.escapeXmlCharacters(info.videoDetails.author.name),
+        originalUrl: videoUrls[0],
         title: Alexa.escapeXmlCharacters(info.videoDetails.title),
         url: highQualityAudioVideoStream.url,
     }

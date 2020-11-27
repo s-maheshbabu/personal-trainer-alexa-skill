@@ -1,6 +1,6 @@
 const Alexa = require('ask-sdk-core');
 
-const { APL_DOCUMENT_TYPE, APL_DOCUMENT_VERSION, VIDEO_PLAYER_COMPONENT_ID, VIDEO_PLAYER_VIEW_TOKEN } = require("constants/APL");
+const { APL_DOCUMENT_TYPE, APL_DOCUMENT_VERSION, APL_INTERFACE, VIDEO_PLAYER_COMPONENT_ID, VIDEO_PLAYER_VIEW_TOKEN } = require("constants/APL");
 
 const videoIndex = require('data/VideoIndex');
 
@@ -13,7 +13,9 @@ module.exports = PlayWorkoutVideoIntentHandler = {
       && Alexa.getIntentName(handlerInput.requestEnvelope) === 'PlayWorkoutVideoIntent';
   },
   async handle(handlerInput) {
-    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    const { attributesManager, requestEnvelope } = handlerInput;
+
+    const sessionAttributes = attributesManager.getSessionAttributes();
     const duration = sessionAttributes.Duration;
     const exerciseLevel = sessionAttributes.ExerciseLevel;
     // TODO: ExerciseType is a mandatory field and so assert on its presence.
@@ -30,6 +32,14 @@ module.exports = PlayWorkoutVideoIntentHandler = {
     }
 
     console.log(`Video selected: ${JSON.stringify(playable)}`);
+
+    if (!Alexa.getSupportedInterfaces(requestEnvelope).hasOwnProperty(APL_INTERFACE)) {
+      return handlerInput.responseBuilder
+        .speak(`I found ${playable.title} from ${playable.channelName}. I put a link to the video in the Alexa app. By the way, try using the skill on Alexa devices with screen, like the Echo Show or Fire TV. I can play the video too on those devices.`)
+        .withShouldEndSession(true)
+        .withSimpleCard(playable.title, playable.originalUrl)
+        .getResponse();
+    }
 
     const speakOutput = `Here is ${playable.title} from ${playable.channelName}. Enjoy your workout.`;
     const aplDirective = {
