@@ -121,3 +121,13 @@ how about {MuscleGroups} {ExerciseType} training for {Duration} and lets keep it
 i want a {ExerciseType} exercise focusing on {MuscleGroups} muscles that is {ExerciseLevel} and under {Duration}
 search for {Duration} minute long {MuscleGroups} {ExerciseType} workouts that are {ExerciseLevel}
 start an {ExerciseLevel} {Duration} {ExerciseType} workout for {MuscleGroups}
+
+StartWorkout_WithExerciseLevelExerciseType:
+{ExerciseLevel} {ExerciseType}
+find a {ExerciseLevel} {ExerciseType} routine
+help me with a {ExerciseType} workout and keep the difficulty level {ExerciseLevel}
+lets do a {ExerciseLevel} session of {ExerciseType}
+play a {ExerciseType} workout and keep it {ExerciseLevel} please
+search for {ExerciseLevel} {ExerciseType} exercise videos
+start a {ExerciseType} exercise that is somewhat {ExerciseLevel}
+start an {ExerciseLevel} {ExerciseType} workout
