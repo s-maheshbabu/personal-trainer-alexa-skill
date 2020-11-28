@@ -29,7 +29,7 @@ const MuscleGroup_Key = "MuscleGroups";
 
 
 describe("Playing the requested video on APL devices", () => {
-    describe.only('should be able to search and play the requested workout video for different sets of parameters.', () => {
+    describe('should be able to search and play the requested workout video for different sets of parameters.', () => {
         const testcases: ({ [key: string]: any; } | string)[] = [
             // search by exercise type and duration
             [{
@@ -122,8 +122,11 @@ describe("Playing the requested video on APL devices", () => {
                                 },
                                 hasDataSources: {
                                     workoutVideoDataSource: (ds: any) => {
-                                        expect(ds.url).to.equal(mockValues.mockPlayableURL);
+                                        expect(ds.channelName).to.equal(mockValues.mockChannelName);
+                                        expect(ds.originalUrl).to.equal(expectedVideo);
+                                        expect(ds.playableUrl).to.equal(mockValues.mockPlayableURL);
                                         expect(ds.videoPlayerId).to.equal(VIDEO_PLAYER_COMPONENT_ID);
+                                        expect(ds.videoTitle).to.equal(mockValues.mockVideoTitle);
 
                                         return true;
                                     },
@@ -154,7 +157,7 @@ describe("Playing the requested video on APL devices", () => {
 });
 
 describe("non-APL devices", () => {
-    describe.only('should render a prompt to indicate that the video cannot be played and that a link will be posted on the companion app.', () => {
+    describe('should render a prompt to indicate that the video cannot be played and that a link will be posted on the companion app.', () => {
         const sessionAttributes = {
             [ExerciseLevel_Key]: 'EASY',
             [ExerciseType_Key]: 'HIIT',

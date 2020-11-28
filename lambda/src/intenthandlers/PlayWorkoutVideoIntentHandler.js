@@ -48,7 +48,7 @@ module.exports = PlayWorkoutVideoIntentHandler = {
       version: APL_DOCUMENT_VERSION,
       document: doc,
       datasources: {
-        workoutVideoDataSource: workoutVideoDataSource(playable.url, VIDEO_PLAYER_COMPONENT_ID)
+        workoutVideoDataSource: workoutVideoDataSource(playable.channelName, playable.originalUrl, playable.url, VIDEO_PLAYER_COMPONENT_ID, playable.title)
       },
     };
 

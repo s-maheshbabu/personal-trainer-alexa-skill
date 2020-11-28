@@ -1,28 +1,214 @@
 {
     "type": "APL",
     "version": "1.5",
-    "settings": {},
-    "theme": "dark",
-    "import": [],
-    "resources": [],
-    "styles": {},
-    "onMount": [],
-    "graphics": {},
-    "commands": {},
-    "layouts": {},
+    "import": [
+        {
+            "name": "alexa-layouts",
+            "version": "1.2.0"
+        }
+    ],
     "mainTemplate": {
         "parameters": [
             "workoutVideoDataSource"
         ],
         "items": [
             {
-                "type": "Video",
-                "id": "${workoutVideoDataSource.videoPlayerId}",
-                "width": "100%",
-                "height": "100%",
-                "autoplay": true,
-                "source": "${workoutVideoDataSource.url}"
+                "type": "Container",
+                "height": "100vh",
+                "width": "100vw",
+                "paddingTop": "@spacingSmall",
+                "items": [
+                    {
+                        "type": "TouchWrapper",
+                        "id": "${workoutVideoDataSource.videoPlayerId}",
+                        "width": "100vw",
+                        "height": "100vh",
+                        "items": [
+                            {
+                                "type": "Video",
+                                "height": "100%",
+                                "width": "100%",
+                                "autoplay": true,
+                                "audioTrack": "foreground",
+                                "id": "videoPlayerId",
+                                "source": {
+                                    "url": "${workoutVideoDataSource.playableUrl}"
+                                },
+                                "onPause": [
+                                    {
+                                        "type": "Parallel",
+                                        "commands": [
+                                            {
+                                                "type": "SetValue",
+                                                "componentId": "alexaPlayPauseToggleButton",
+                                                "property": "checked",
+                                                "value": true
+                                            },
+                                            {
+                                                "type": "SetValue",
+                                                "componentId": "overlayContainer",
+                                                "property": "display",
+                                                "value": "normal"
+                                            },
+                                            {
+                                                "type": "SetFocus",
+                                                "componentId": "alexaPlayPauseToggleButton"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "onPlay": [
+                                    {
+                                        "type": "Parallel",
+                                        "commands": [
+                                            {
+                                                "type": "SetValue",
+                                                "componentId": "alexaPlayPauseToggleButton",
+                                                "property": "checked",
+                                                "value": false
+                                            },
+                                            {
+                                                "type": "showOverlayBriefly"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "onPress": [
+                            {
+                                "type": "showOverlayBriefly"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Container",
+                        "id": "overlayContainer",
+                        "position": "absolute",
+                        "display": "invisible",
+                        "width": "100vw",
+                        "height": "100vh",
+                        "alignItems": "center",
+                        "justifyContent": "${@viewportProfile == @hubRoundSmall ? 'center' : 'start'}",
+                        "items": [
+                            {
+                                "type": "Frame",
+                                "backgroundColor": "rgba(0,0,0,40%)",
+                                "paddingTop": "5vh",
+                                "paddingBottom": "5vh",
+                                "paddingLeft": "5vh",
+                                "paddingRight": "5vh",
+                                "item": [
+                                    {
+                                        "type": "Container",
+                                        "items": [
+                                            {
+                                                "type": "Text",
+                                                "id": "title",
+                                                "text": "${workoutVideoDataSource.videoTitle}",
+                                                "width": "100vw",
+                                                "fontSize": "8vh",
+                                                "maxLines": 2,
+                                                "paddingTop": "3vh",
+                                                "paddingLeft": "3vw",
+                                                "paddingRight": "3vw"
+                                            },
+                                            {
+                                                "type": "Text",
+                                                "id": "channel",
+                                                "text": "Creator: ${workoutVideoDataSource.channelName}",
+                                                "width": "100vw",
+                                                "fontSize": "5vh",
+                                                "paddingTop": "3vh",
+                                                "maxLines": 3,
+                                                "paddingLeft": "3vw",
+                                                "paddingRight": "3vw"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Frame",
+                                "onMount": [
+                                    {
+                                        "type": "showOverlayBriefly"
+                                    }
+                                ],
+                                "position": "absolute",
+                                "backgroundColor": "${@viewportProfile == @hubRoundSmall ? 'transparent' : 'rgba(0,0,0,40%)'}",
+                                "borderRadius": "20",
+                                "item": {
+                                    "type": "AlexaTransportControls",
+                                    "primaryControlSize": 75,
+                                    "secondaryControls": "jump30",
+                                    "mediaComponentId": "videoPlayerId",
+                                    "playPauseToggleButtonId": "playPauseToggleButtonId",
+                                    "autoplay": true
+                                },
+                                "bottom": "2vh"
+                            },
+                            {
+                                "type": "Frame",
+                                "position": "absolute",
+                                "backgroundColor": "${@viewportProfile == @hubRoundSmall ? 'transparent' : 'rgba(255,0,0,100%)'}",
+                                "borderRadius": "20",
+                                "bottom": "2vh",
+                                "right": "2vh",
+                                "items": [
+                                    {
+                                        "type": "AlexaButton",
+                                        "buttonText": "Open in Youtube",
+                                        "touchForward": true,
+                                        "primaryAction": [
+                                            {
+                                                "type": "OpenURL",
+                                                "source": "${workoutVideoDataSource.originalUrl}"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
+    },
+    "commands": {
+        "showOverlayBriefly": {
+            "parameters": [
+                {
+                    "name": "delay",
+                    "type": "number",
+                    "default": 0
+                }
+            ],
+            "commands": [
+                {
+                    "type": "Sequential",
+                    "delay": "${delay}",
+                    "commands": [
+                        {
+                            "type": "SetValue",
+                            "componentId": "overlayContainer",
+                            "property": "display",
+                            "value": "normal"
+                        },
+                        {
+                            "type": "SetFocus",
+                            "componentId": "alexaPlayPauseToggleButton"
+                        },
+                        {
+                            "type": "SetValue",
+                            "componentId": "overlayContainer",
+                            "property": "display",
+                            "value": "invisible",
+                            "delay": 3000
+                        }
+                    ]
+                }
+            ]
+        }
     }
 }
