@@ -20,7 +20,7 @@
                 "items": [
                     {
                         "type": "TouchWrapper",
-                        "id": "${workoutVideoDataSource.videoPlayerId}",
+                        "id": "videoPlayerTouchWrapper",
                         "width": "100vw",
                         "height": "100vh",
                         "items": [
@@ -30,7 +30,7 @@
                                 "width": "100%",
                                 "autoplay": true,
                                 "audioTrack": "foreground",
-                                "id": "videoPlayerId",
+                                "id": "${workoutVideoDataSource.videoPlayerId}",
                                 "source": {
                                     "url": "${workoutVideoDataSource.playableUrl}"
                                 },
@@ -142,7 +142,7 @@
                                     "type": "AlexaTransportControls",
                                     "primaryControlSize": 75,
                                     "secondaryControls": "jump30",
-                                    "mediaComponentId": "videoPlayerId",
+                                    "mediaComponentId": "${workoutVideoDataSource.videoPlayerId}",
                                     "playPauseToggleButtonId": "playPauseToggleButtonId",
                                     "autoplay": true
                                 },
