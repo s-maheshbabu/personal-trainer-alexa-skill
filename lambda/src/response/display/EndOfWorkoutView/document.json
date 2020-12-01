@@ -2,7 +2,7 @@
     "type": "APL",
     "version": "1.5",
     "settings": {},
-    "theme": "dark",
+    "theme": "light",
     "import": [
         {
             "name": "alexa-layouts",
@@ -26,8 +26,8 @@
                 "item": [
                     {
                         "type": "AlexaBackground",
-                        "backgroundVideoSource": "https://smartypants-alexa-skill.s3.amazonaws.com/Videos/QuestionAndAnswersBackgroundVideo.mp4",
-                        "videoAutoPlay": true
+                        "backgroundImageSource": "${endOfWorkoutDataSource.videoImageUrl}",
+                        "backgroundBlur": true
                     },
                     {
                         "type": "Container",
@@ -43,7 +43,7 @@
                                 "textAlign": "center"
                             }
                         ],
-                        "shadowColor": "red",
+                        "shadowColor": "white",
                         "shadowRadius": "20",
                         "shadowVerticalOffset": "1"
                     },
@@ -54,7 +54,8 @@
                             {
                                 "type": "AlexaImage",
                                 "imageSource": "${endOfWorkoutDataSource.videoImageUrl}",
-                                "imageAlignment": "center"
+                                "imageAlignment": "center",
+                                "imageRoundedCorner": true
                             },
                             {
                                 "type": "Text",
@@ -76,16 +77,6 @@
                                                 "source": "${endOfWorkoutDataSource.originalUrl}"
                                             }
                                         ]
-                                    }
-                                ]
-                            },
-                            {
-                                "type": "Frame",
-                                "item": [
-                                    {
-                                        "type": "AlexaButton",
-                                        "buttonText": "Email link to 'Like and Subscribe (not working yet)'",
-                                        "touchForward": true
                                     }
                                 ]
                             }
