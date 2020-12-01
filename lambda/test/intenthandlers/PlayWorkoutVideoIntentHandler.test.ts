@@ -27,7 +27,6 @@ const ExerciseLevel_Key = "ExerciseLevel";
 const ExerciseType_Key = "ExerciseType";
 const MuscleGroup_Key = "MuscleGroups";
 
-
 describe("Playing the requested video on APL devices", () => {
     describe('should be able to search and play the requested workout video for different sets of parameters.', () => {
         const testcases: ({ [key: string]: any; } | string)[] = [
@@ -125,6 +124,7 @@ describe("Playing the requested video on APL devices", () => {
                                         expect(ds.channelName).to.equal(mockValues.mockChannelName);
                                         expect(ds.originalUrl).to.equal(expectedVideo);
                                         expect(ds.playableUrl).to.equal(mockValues.mockPlayableURL);
+                                        expect(ds.videoImageUrl).to.equal(mockValues.mockVideoImageUrl);
                                         expect(ds.videoPlayerId).to.equal(VIDEO_PLAYER_COMPONENT_ID);
                                         expect(ds.videoTitle).to.equal(mockValues.mockVideoTitle);
 
@@ -192,9 +192,10 @@ function setupYtdlCoreMock(url) {
     const mockChannelName = `mock-channel-name-for-${url}`;
     const mockChannelUrl = `mock-channel-url-for-${url}`;
     const mockPlayableURL = `mock-playable-url-for-${url}`;
+    const mockVideoImageUrl = `mock-video-image-url-for-${url}`;
     const mockVideoTitle = `mock-video-title-for-${url}`;
 
-    const videoInfo = { formats: [{ url: 'someUrl' }, { url: 'someOtherUrl' }], videoDetails: { author: { channel_url: mockChannelUrl, name: mockChannelName }, title: mockVideoTitle } };
+    const videoInfo = { formats: [{ url: 'someUrl' }, { url: 'someOtherUrl' }], videoDetails: { author: { channel_url: mockChannelUrl, name: mockChannelName }, title: mockVideoTitle, thumbnail: { thumbnails: [{ url: 'someUrl' }, { url: 'someUrl' }, { url: mockVideoImageUrl }] } } };
     const ytdlGetInfoStub = sinon.stub();
     ytdlGetInfoStub
         .withArgs(url).onFirstCall().returns(videoInfo)
@@ -215,7 +216,8 @@ function setupYtdlCoreMock(url) {
     return {
         mockChannelName: mockChannelName,
         mockChannelUrl: mockChannelUrl,
-        mockVideoTitle: mockVideoTitle,
         mockPlayableURL: mockPlayableURL,
+        mockVideoImageUrl: mockVideoImageUrl,
+        mockVideoTitle: mockVideoTitle,
     }
 }

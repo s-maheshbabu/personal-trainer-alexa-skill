@@ -32,7 +32,7 @@
                                 "audioTrack": "foreground",
                                 "id": "${workoutVideoDataSource.videoPlayerId}",
                                 "source": {
-                                    "url": "${workoutVideoDataSource.playableUrl}"
+                                    "url": "https://s3.amazonaws.com/ask-samples-resources/videos/underconfirmation.mp4"
                                 },
                                 "onPause": [
                                     {
@@ -69,6 +69,21 @@
                                             },
                                             {
                                                 "type": "showOverlayBriefly"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "onEnd": [
+                                    {
+                                        "type": "Parallel",
+                                        "commands": [
+                                            {
+                                                "type": "SendEvent",
+                                                "arguments": [
+                                                    "${workoutVideoDataSource.channelName}",
+                                                    "${workoutVideoDataSource.originalUrl}",
+                                                    "${workoutVideoDataSource.videoImageUrl}"
+                                                ]
                                             }
                                         ]
                                     }

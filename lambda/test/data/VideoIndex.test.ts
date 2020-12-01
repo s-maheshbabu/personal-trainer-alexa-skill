@@ -86,9 +86,10 @@ describe("Escape SSML characters. The video metadata is out of our control and c
 
         const mockChannelName = `mock & channel with & invalid characters`;
         const mockPlayableURL = `mock-playable-url`;
+        const mockVideoImageUrl = `mock-video-image-url`;
         const mockVideoTitle = `mock & video title with & invalid characters`;
 
-        const videoInfo = { formats: [{ url: 'someUrl' }, { url: 'someOtherUrl' }], videoDetails: { author: { name: mockChannelName }, title: mockVideoTitle } };
+        const videoInfo = { formats: [{ url: 'someUrl' }, { url: 'someOtherUrl' }], videoDetails: { author: { name: mockChannelName }, title: mockVideoTitle, thumbnail: { thumbnails: [{ url: 'someUrl' }, { url: 'someUrl' }, { url: mockVideoImageUrl }] } } };
         const ytdlGetInfoStub = sinon.stub();
         ytdlGetInfoStub
             .withArgs(expectedUrl).onFirstCall().returns(videoInfo)

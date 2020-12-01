@@ -1,0 +1,100 @@
+{
+    "type": "APL",
+    "version": "1.5",
+    "settings": {},
+    "theme": "dark",
+    "import": [
+        {
+            "name": "alexa-layouts",
+            "version": "1.2.0"
+        }
+    ],
+    "resources": [],
+    "styles": {},
+    "onMount": [],
+    "graphics": {},
+    "commands": {},
+    "layouts": {},
+    "mainTemplate": {
+        "parameters": [
+            "endOfWorkoutDataSource"
+        ],
+        "items": [
+            {
+                "type": "Container",
+                "height": "100%",
+                "item": [
+                    {
+                        "type": "AlexaBackground",
+                        "backgroundVideoSource": "https://smartypants-alexa-skill.s3.amazonaws.com/Videos/QuestionAndAnswersBackgroundVideo.mp4",
+                        "videoAutoPlay": true
+                    },
+                    {
+                        "type": "Container",
+                        "height": "20%",
+                        "item": [
+                            {
+                                "type": "Text",
+                                "height": "100%",
+                                "maxLines": 1,
+                                "textAlignVertical": "center",
+                                "text": "Hope you had a great workout",
+                                "fontSize": "30dp",
+                                "textAlign": "center"
+                            }
+                        ],
+                        "shadowColor": "red",
+                        "shadowRadius": "20",
+                        "shadowVerticalOffset": "1"
+                    },
+                    {
+                        "type": "Container",
+                        "height": "80%",
+                        "item": [
+                            {
+                                "type": "AlexaImage",
+                                "imageSource": "${endOfWorkoutDataSource.videoImageUrl}",
+                                "imageAlignment": "center"
+                            },
+                            {
+                                "type": "Text",
+                                "maxLines": 1,
+                                "text": "Show your appreciation for ${endOfWorkoutDataSource.channelName}",
+                                "fontSize": "15dp",
+                                "textAlign": "center"
+                            },
+                            {
+                                "type": "Frame",
+                                "item": [
+                                    {
+                                        "type": "AlexaButton",
+                                        "buttonText": "Like and Subscribe",
+                                        "touchForward": true,
+                                        "primaryAction": [
+                                            {
+                                                "type": "OpenURL",
+                                                "source": "${endOfWorkoutDataSource.originalUrl}"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Frame",
+                                "item": [
+                                    {
+                                        "type": "AlexaButton",
+                                        "buttonText": "Email link to 'Like and Subscribe (not working yet)'",
+                                        "touchForward": true
+                                    }
+                                ]
+                            }
+                        ],
+                        "alignItems": "center",
+                        "alignSelf": "center"
+                    }
+                ]
+            }
+        ]
+    }
+}

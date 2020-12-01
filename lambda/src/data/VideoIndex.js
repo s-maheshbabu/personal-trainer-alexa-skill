@@ -21,14 +21,17 @@ const getPlayableVideo = async (exerciseType, duration, muscleGroups, exerciseLe
     const videoUrls = await search(exerciseType, duration, muscleGroups, exerciseLevel);
     if (videoUrls.length === 0) return null;
 
-    let info = await ytdl.getInfo(videoUrls[0]);
-    let highQualityAudioVideoStream = ytdl.chooseFormat(info.formats, { filter: 'audioandvideo', quality: 'highestvideo' });
+    const info = await ytdl.getInfo(videoUrls[0]);
+    const videoImageUrl = info.videoDetails.thumbnail.thumbnails[2].url;
+
+    const highQualityAudioVideoStream = ytdl.chooseFormat(info.formats, { filter: 'audioandvideo', quality: 'highestvideo' });
 
     return {
         channelName: Alexa.escapeXmlCharacters(info.videoDetails.author.name),
         originalUrl: videoUrls[0],
         title: Alexa.escapeXmlCharacters(info.videoDetails.title),
         url: highQualityAudioVideoStream.url,
+        videoImageUrl: videoImageUrl,
     }
 }
 
