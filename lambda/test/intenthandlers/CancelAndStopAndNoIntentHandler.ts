@@ -14,7 +14,7 @@ const alexaTest = new AlexaTest(skillHandler, skillSettings);
 
 const exitSkillDocument = require("../../src/response/display/ExitSkillView/document.json");
 
-describe.only("Exiting the skill", () => {
+describe("Exiting the skill", () => {
     describe('should exit the skill when the user says stop or cancel', () => {
         const exitIntents = ['AMAZON.CancelIntent', 'AMAZON.StopIntent'];
         exitIntents.forEach(intentName => {

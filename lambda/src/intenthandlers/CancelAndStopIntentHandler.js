@@ -19,6 +19,7 @@ module.exports = CancelAndStopAndNoIntentHandler = {
         version: APL_DOCUMENT_VERSION,
         document: exitSkillDocument,
       })
+      .withShouldEndSession(true)
       .getResponse();
   }
 };
