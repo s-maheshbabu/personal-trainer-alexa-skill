@@ -61,36 +61,44 @@ const IntentReflectorHandler = {
     }
 };
 
+let skill;
 /**
  * This handler acts as the entry point for your skill, routing all request and response
  * payloads to the handlers above. Make sure any new handlers or interceptors you've
  * defined are included below. The order matters - they're processed top to bottom 
  * */
-exports.handler = Alexa.SkillBuilders.custom()
-    .addRequestHandlers(
-        CancelAndStopIntentHandler,
-        HelpIntentHandler,
-        LaunchRequestHandler,
-        PlaybackControlIntentsHandler,
-        PlayWorkoutVideoIntentHandler,
+exports.handler = async function (event, context) {
+    if (!skill) {
+        skill = Alexa.SkillBuilders.custom()
 
-        UserEventHandler,
+            .addRequestHandlers(
+                CancelAndStopIntentHandler,
+                HelpIntentHandler,
+                LaunchRequestHandler,
+                PlaybackControlIntentsHandler,
+                PlayWorkoutVideoIntentHandler,
 
-        StartWorkoutAPI,
+                UserEventHandler,
 
-        SessionEndedRequestHandler,
-        FallbackIntentHandler,
-        IntentReflectorHandler,
-    )
-    .addRequestInterceptors(
-        LogRequestInterceptor,
-    )
-    .addResponseInterceptors(
-        ResponseSanitizationInterceptor,
-        LogResponseInterceptor,
-    )
-    .addErrorHandlers(
-        ErrorHandler,
-    )
-    .withCustomUserAgent('sample/personal-trainer/v1.2')
-    .lambda();
+                StartWorkoutAPI,
+
+                SessionEndedRequestHandler,
+                FallbackIntentHandler,
+                IntentReflectorHandler,
+            )
+            .addRequestInterceptors(
+                LogRequestInterceptor,
+            )
+            .addResponseInterceptors(
+                ResponseSanitizationInterceptor,
+                LogResponseInterceptor,
+            )
+            .addErrorHandlers(
+                ErrorHandler,
+            )
+            .withApiClient(new Alexa.DefaultApiClient())
+            .create();
+    }
+
+    return skill.invoke(event, context);
+};
