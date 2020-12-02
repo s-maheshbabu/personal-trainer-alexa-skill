@@ -9,7 +9,13 @@
             "version": "1.2.0"
         }
     ],
-    "resources": [],
+    "resources": [
+        {
+            "colors": {
+                "colorComponent": "#ff0000"
+            }
+        }
+    ],
     "styles": {},
     "onMount": [],
     "graphics": {},
