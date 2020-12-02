@@ -34,8 +34,9 @@ const getPlayableVideo = async (exerciseType, duration, muscleGroups, exerciseLe
 
     const highQualityAudioVideoStream = ytdl.chooseFormat(info.formats, { filter: 'audioandvideo', quality: 'highestvideo' });
 
+    // TODO tests for falling back to ownerChannelName, what to do when title is missing.
     return {
-        channelName: Alexa.escapeXmlCharacters(info.videoDetails.author.name),
+        channelName: Alexa.escapeXmlCharacters(info.videoDetails.author.name || info.videoDetails.ownerChannelName),
         originalUrl: videoUrls[0],
         title: Alexa.escapeXmlCharacters(info.videoDetails.title),
         url: highQualityAudioVideoStream.url,
