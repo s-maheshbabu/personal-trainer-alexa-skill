@@ -1,6 +1,9 @@
 const Alexa = require('ask-sdk-core');
 const ytdl = require('ytdl-core');
 
+const YTDL_GET_INFO_TIME = `Ytdl GetInfo Latency`;
+const VIDEO_REPO_LOAD_TIME = `Video Repository Load Latency`;
+
 const videos = (() => {
     if (process.env.NODE_ENV && process.env.NODE_ENV === 'test')
         return require('../../test/data/workouts-test-data');
@@ -11,7 +14,9 @@ const videos = (() => {
 const low = require('lowdb');
 const Memory = require('lowdb/adapters/Memory');
 const db = low(new Memory());
+console.time(VIDEO_REPO_LOAD_TIME);
 db.defaults(videos).write();
+console.timeEnd(VIDEO_REPO_LOAD_TIME);
 
 /**
  * Fetches a playable video stream and some metadata matching the given parameters.
@@ -21,7 +26,10 @@ const getPlayableVideo = async (exerciseType, duration, muscleGroups, exerciseLe
     const videoUrls = await search(exerciseType, duration, muscleGroups, exerciseLevel);
     if (videoUrls.length === 0) return null;
 
+    console.time(YTDL_GET_INFO_TIME);
     const info = await ytdl.getInfo(videoUrls[0]);
+    console.timeEnd(YTDL_GET_INFO_TIME);
+
     const videoImageUrl = info.videoDetails.thumbnail.thumbnails[2].url;
 
     const highQualityAudioVideoStream = ytdl.chooseFormat(info.formats, { filter: 'audioandvideo', quality: 'highestvideo' });
