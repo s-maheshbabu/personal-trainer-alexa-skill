@@ -32,17 +32,17 @@
                                 "audioTrack": "foreground",
                                 "id": "${workoutVideoDataSource.videoPlayerId}",
                                 "source": {
-                                    "url": "https://s3.amazonaws.com/ask-samples-resources/videos/underconfirmation.mp4"
+                                    "url": "${workoutVideoDataSource.playableUrl}"
                                 },
                                 "onPause": [
                                     {
                                         "type": "Parallel",
                                         "commands": [
                                             {
-                                                "type": "SetValue",
-                                                "componentId": "alexaPlayPauseToggleButton",
-                                                "property": "checked",
-                                                "value": true
+                                                "type": "SetState",
+                                                "componentId": "playPauseToggleButtonId",
+                                                "state": "checked",
+                                                "value": false
                                             },
                                             {
                                                 "type": "SetValue",
@@ -52,7 +52,7 @@
                                             },
                                             {
                                                 "type": "SetFocus",
-                                                "componentId": "alexaPlayPauseToggleButton"
+                                                "componentId": "playPauseToggleButtonId"
                                             }
                                         ]
                                     }
@@ -62,10 +62,10 @@
                                         "type": "Parallel",
                                         "commands": [
                                             {
-                                                "type": "SetValue",
-                                                "componentId": "alexaPlayPauseToggleButton",
-                                                "property": "checked",
-                                                "value": false
+                                                "type": "SetState",
+                                                "componentId": "playPauseToggleButtonId",
+                                                "state": "checked",
+                                                "value": true
                                             },
                                             {
                                                 "type": "showOverlayBriefly"
@@ -212,7 +212,7 @@
                         },
                         {
                             "type": "SetFocus",
-                            "componentId": "alexaPlayPauseToggleButton"
+                            "componentId": "playPauseToggleButtonId"
                         },
                         {
                             "type": "SetValue",
