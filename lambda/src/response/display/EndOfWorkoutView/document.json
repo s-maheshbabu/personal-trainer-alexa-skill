@@ -85,6 +85,29 @@
                                         ]
                                     }
                                 ]
+                            },
+                            {
+                                "type": "Frame",
+                                "item": [
+                                    {
+                                        "type": "AlexaButton",
+                                        "buttonText": "Email Me",
+                                        "touchForward": true,
+                                        "primaryAction": [
+                                            {
+                                                "type": "SetValue",
+                                                "property": "disabled",
+                                                "value": true
+                                            },
+                                            {
+                                                "type": "SetValue",
+                                                "property": "buttonText",
+                                                "value": "Sending..."
+                                            },
+                                            "${endOfWorkoutDataSource.sendEmailEvent}"
+                                        ]
+                                    }
+                                ]
                             }
                         ],
                         "alignItems": "center",

@@ -1,7 +1,8 @@
-import { expect } from 'chai';
+import { assert, expect } from 'chai';
 const sinon = require("sinon");
 
 import * as deepEqual from 'deep-equal';
+const eventtypes = require("../../src/constants/EventTypes").eventtypes;
 
 import { AlexaTest, IntentRequestBuilder, SkillSettings } from 'ask-sdk-test';
 const skillSettings: SkillSettings = {
@@ -121,6 +122,16 @@ describe("Playing the requested video on APL devices", () => {
                                 },
                                 hasDataSources: {
                                     workoutVideoDataSource: (ds: any) => {
+                                        assert(deepEqual(ds.workoutEndedEvent, {
+                                            type: "SendEvent",
+                                            arguments: [
+                                                eventtypes.WorkoutEnded,
+                                                mockValues.mockChannelName,
+                                                expectedVideo,
+                                                mockValues.mockVideoImageUrl,
+                                            ]
+                                        }));
+
                                         expect(ds.channelName).to.equal(mockValues.mockChannelName);
                                         expect(ds.originalUrl).to.equal(expectedVideo);
                                         expect(ds.playableUrl).to.equal(mockValues.mockPlayableURL);

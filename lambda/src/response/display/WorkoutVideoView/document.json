@@ -77,14 +77,7 @@
                                     {
                                         "type": "Parallel",
                                         "commands": [
-                                            {
-                                                "type": "SendEvent",
-                                                "arguments": [
-                                                    "${workoutVideoDataSource.channelName}",
-                                                    "${workoutVideoDataSource.originalUrl}",
-                                                    "${workoutVideoDataSource.videoImageUrl}"
-                                                ]
-                                            }
+                                            "${workoutVideoDataSource.workoutEndedEvent}"
                                         ]
                                     }
                                 ]
