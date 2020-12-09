@@ -93,6 +93,7 @@
                                         "type": "AlexaButton",
                                         "buttonText": "Email Me",
                                         "touchForward": true,
+                                        "display": "invisible",
                                         "primaryAction": [
                                             {
                                                 "type": "SetValue",
