@@ -22,6 +22,7 @@ const UserEventHandler = require("eventhandlers/UserEventHandler");
 const ErrorHandler = require("errors/ErrorHandler");
 
 const ResponseSanitizationInterceptor = require("interceptors/ResponseSanitizationInterceptor");
+const SESTransporterInterceptor = require("interceptors/SESTransporterInterceptor");
 
 const TOTAL_REQUEST_TIME = `Total Request Time`;
 
@@ -88,6 +89,7 @@ exports.handler = async function (event, context) {
             )
             .addRequestInterceptors(
                 LogRequestInterceptor,
+                SESTransporterInterceptor,
             )
             .addResponseInterceptors(
                 ResponseSanitizationInterceptor,

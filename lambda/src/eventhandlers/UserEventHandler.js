@@ -1,4 +1,6 @@
 const eventtypes = require("constants/EventTypes").eventtypes;
+const getEmailAddress = require("utilities").getEmailAddress;
+const Mailer = require("gateway/Mailer.js");
 
 const endOfWorkoutDocument = require("response/display/EndOfWorkoutView/document.json");
 const endOfWorkoutDataSource = require("response/display/EndOfWorkoutView/datasources/default");
@@ -11,7 +13,7 @@ module.exports = UserEventHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent'
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         const { responseBuilder } = handlerInput;
 
         const eventType = handlerInput.requestEnvelope.request.arguments[0];
@@ -32,10 +34,29 @@ module.exports = UserEventHandler = {
                 })
                 .withShouldEndSession(undefined)
                 .getResponse();
-        else if (eventtypes.SendEmail === eventType)
-            // TODO: Actually send an email here.
+        else if (eventtypes.SendEmail === eventType) {
+            const emailAddress = await getEmailAddress(handlerInput);
+            if (emailAddress) {
+                // Is it possible to not wait on sending the email?
+                await Mailer.sendEmail(emailAddress, channelName, originalUrl, videoImageUrl);
+                console.log("We have the user's email address. An email was sent with the search results.");
+
+                return responseBuilder
+                    .speak(`Done. See you on your next workout. Good bye.`)
+                    .addDirective({
+                        type: APL_DOCUMENT_TYPE,
+                        version: APL_DOCUMENT_VERSION,
+                        document: exitSkillDocument,
+                    })
+                    .withShouldEndSession(undefined)
+                    .getResponse();
+            }
+
+            // TODO: There appears to be a bug where permissions card isn't being placed from UserEventHandlers. Same code works from IntentHandlers.
+            // So we shouldn't tell the users that we put a card in their app?
             return responseBuilder
-                .speak(`Done. See you on your next workout. Good bye.`)
+                .speak(`Sorry but I do not have permissions to email you. I put a card in your Amazon Alexa app in case you plan to grant the permission and try again. Good bye.`)
+                .withAskForPermissionsConsentCard(["alexa::profile:email:read"])
                 .addDirective({
                     type: APL_DOCUMENT_TYPE,
                     version: APL_DOCUMENT_VERSION,
@@ -43,6 +64,7 @@ module.exports = UserEventHandler = {
                 })
                 .withShouldEndSession(undefined)
                 .getResponse();
-        // TODO: throw error for unexpected event.
+        }
+        // TODO: throw error for unexpected event type.
     }
 }

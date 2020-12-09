@@ -1,5 +1,6 @@
 const Alexa = require('ask-sdk-core');
 const { hasIn } = require('immutable');
+const EmailValidator = require("email-validator");
 
 const skill_model = require("../model/en-US");
 
@@ -13,6 +14,34 @@ const getApiArguments = (handlerInput) => {
         console.log('Error occurred: ', e);
         return false;
     }
+}
+
+/**
+ * Checks for permissions to access the user's email address and returns
+ * a valid email address is available. Returns null otherwise.
+ */
+async function getEmailAddress(handlerInput) {
+    const { requestEnvelope, serviceClientFactory } = handlerInput;
+
+    let emailAddress = null;
+    const consentToken = requestEnvelope.context.System.apiAccessToken;
+    if (!consentToken) {
+        console.log(`User hasn't granted permissions to access their profile information.`);
+        return emailAddress;
+    }
+
+    try {
+        const client = serviceClientFactory.getUpsServiceClient();
+        emailAddress = await client.getProfileEmail();
+    } catch (error) {
+        if (error.statusCode === 403)
+            console.log(`User hasn't granted permissions to access their profile information. Error: ${error}`);
+        else
+            console.log(`An unexpected error occurred while trying to fetch user profile: ${error}`);
+    }
+
+    if (!EmailValidator.validate(emailAddress)) return null;
+    return emailAddress;
 }
 
 const getFirstResolvedEntityId = (element) => {
@@ -109,6 +138,7 @@ const slotSynonymsToIdMap = (slotTypeName) => {
 
 module.exports = {
     getApiArguments: getApiArguments,
+    getEmailAddress: getEmailAddress,
     getFirstResolvedEntityId: getFirstResolvedEntityId,
     getIntentName: getIntentName,
     getSlots: getSlots,
