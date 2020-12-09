@@ -29,7 +29,7 @@
                                 "height": "100%",
                                 "width": "100%",
                                 "autoplay": true,
-                                "audioTrack": "foreground",
+                                "audioTrack": "background",
                                 "id": "${workoutVideoDataSource.videoPlayerId}",
                                 "source": {
                                     "url": "${workoutVideoDataSource.playableUrl}"
