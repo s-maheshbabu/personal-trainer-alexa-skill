@@ -4,6 +4,7 @@ const EmailValidator = require("email-validator");
 let AWS = require('aws-sdk');
 AWS.config.update({ region: 'us-east-1' });
 
+// TODO: Create an email address for personal trainer skill.
 const FROM_ADDRESS = "Personal Trainer <refugee.restrooms@gmail.com>";
 const SUBJECT_LINE = "Personal Trainer - Alexa Skill";
 

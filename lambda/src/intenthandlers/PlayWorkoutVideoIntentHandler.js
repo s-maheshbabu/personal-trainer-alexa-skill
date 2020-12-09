@@ -4,6 +4,10 @@ const { APL_DOCUMENT_TYPE, APL_DOCUMENT_VERSION, APL_INTERFACE, VIDEO_PLAYER_COM
 
 const videoIndex = require('data/VideoIndex');
 
+const getEmailAddress = require("utilities").getEmailAddress;
+const Mailer = require("gateway/Mailer.js");
+const scopes = require("constants/Scopes").scopes;
+
 const doc = require("response/display/WorkoutVideoView/document.json");
 const workoutVideoDataSource = require("response/display/WorkoutVideoView/datasources/default");
 
@@ -38,14 +42,11 @@ module.exports = PlayWorkoutVideoIntentHandler = {
         .withShouldEndSession(true)
         .withSimpleCard(playable.title, playable.originalUrl);
 
-      // TODO: Persist this email address in session and use it else where in the skill, like UserEvent Handler.
-      const getEmailAddress = require("utilities").getEmailAddress;
-      const Mailer = require("gateway/Mailer.js");
       const emailAddress = await getEmailAddress(handlerInput);
-      if (!emailAddress) builder.withAskForPermissionsConsentCard(["alexa::profile:email:read"]);
+      if (!emailAddress) builder.withAskForPermissionsConsentCard([scopes.EMAIL_SCOPE]);
       else await Mailer.sendEmail(emailAddress, playable.channelName, playable.originalUrl, playable.videoImageUrl);
 
-      builder.speak(`I found ${playable.title} from ${playable.channelName} and ${emailAddress ? `emailed you a link` : `put a link in the Alexa companion app. I also put a card asking permission to access your email address so I can email you links to your workout videos in future`}. By the way, try using the skill on Alexa devices with screen, like the Echo Show or Fire TV. I can play the video too on those devices.`);
+      builder.speak(`I found ${playable.title} from ${playable.channelName} and ${emailAddress ? `emailed you a link` : `would love to email you a link to the video. I put a card in the Alexa app asking permission to access your email address so I can email your workout videos`}. By the way, try using the skill on Alexa devices with screen, like the Echo Show or Fire TV. I can play the video too on those devices.`);
       return builder.getResponse();
     }
 

@@ -1,6 +1,10 @@
 import { assert, expect } from 'chai';
 const sinon = require("sinon");
 
+const nock = require('nock')
+const Mailer = require("gateway/Mailer.js");
+const nodemailerMock = require('nodemailer-mock');
+
 import * as deepEqual from 'deep-equal';
 const eventtypes = require("../../src/constants/EventTypes").eventtypes;
 
@@ -167,14 +171,55 @@ describe("Playing the requested video on APL devices", () => {
     });
 });
 
-describe("non-APL devices", () => {
-    describe('should render a prompt to indicate that the video cannot be played and that a link will be posted on the companion app.', () => {
-        const sessionAttributes = {
-            [ExerciseLevel_Key]: 'EASY',
-            [ExerciseType_Key]: 'HIIT',
-            [MuscleGroup_Key]: ['FOREARMS', 'TRICEPS'],
-        };
-        const expectedVideo = 'https://url/9';
+describe("Users requesting workouts from non-APL devices", () => {
+    const sessionAttributes = {
+        [ExerciseLevel_Key]: 'EASY',
+        [ExerciseType_Key]: 'HIIT',
+        [MuscleGroup_Key]: ['FOREARMS', 'TRICEPS'],
+    };
+    const expectedVideo = 'https://url/9';
+
+    describe('should render a prompt to indicate that the video cannot be played and that a link will be posted on the companion app. Since we do not have access to email, we also place a card asking for permissions to send emails.', () => {
+        rewiremock.inScope(() => {
+            rewiremock('ytdl-core').dynamic();
+            rewiremock.enable();
+            const skillHandler = require('../../src/index').handler;
+            rewiremock.disable();
+
+            const mockValues = setupYtdlCoreMock(expectedVideo);
+            const alexaTest = new AlexaTest(skillHandler, skillSettings);
+
+            alexaTest.test([
+                {
+                    request: new IntentRequestBuilder(skillSettings, intentName).withInterfaces({ apl: false }).build(),
+                    withSessionAttributes: sessionAttributes,
+                    says: `I found ${mockValues.mockVideoTitle} from ${mockValues.mockChannelName} and would love to email you a link to the video. I put a card in the Alexa app asking permission to access your email address so I can email your workout videos. By the way, try using the skill on Alexa devices with screen, like the Echo Show or Fire TV. I can play the video too on those devices.`,
+                    shouldEndSession: true,
+                    // TODO Add support from testing withAskForPermissionsConsentCard presence in ask-sdk-test
+                },
+            ]);
+        });
+    });
+
+    describe('should render a prompt to indicate that the video cannot be played and that a link will be sent via email and companion app.', () => {
+        const ALEXA_API_ENDPOINT = "https://api.amazonalexa.com/";
+
+        const FROM_EMAIL_ADDRESS = "Personal Trainer <refugee.restrooms@gmail.com>";
+        const DUMMY_EMAIL_ADDRESS = "success@simulator.amazonses.com";
+
+        const transporter = nodemailerMock.createTransport({
+            host: '127.0.0.1',
+            port: -100,
+        });
+
+        beforeEach(() => {
+            configureUpsService(200, ALEXA_API_ENDPOINT, DUMMY_EMAIL_ADDRESS);
+            Mailer.init(transporter);
+        });
+
+        afterEach(function () {
+            nodemailerMock.mock.reset();
+        });
 
         rewiremock.inScope(() => {
             rewiremock('ytdl-core').dynamic();
@@ -189,15 +234,38 @@ describe("non-APL devices", () => {
                 {
                     request: new IntentRequestBuilder(skillSettings, intentName).withInterfaces({ apl: false }).build(),
                     withSessionAttributes: sessionAttributes,
-                    says: `I found ${mockValues.mockVideoTitle} from ${mockValues.mockChannelName}. I put a link to the video in the Alexa app. By the way, try using the skill on Alexa devices with screen, like the Echo Show or Fire TV. I can play the video too on those devices.`,
+                    says: `I found ${mockValues.mockVideoTitle} from ${mockValues.mockChannelName} and emailed you a link. By the way, try using the skill on Alexa devices with screen, like the Echo Show or Fire TV. I can play the video too on those devices.`,
                     shouldEndSession: true,
                     hasCardTitle: mockValues.mockVideoTitle,
                     hasCardContent: expectedVideo,
+                    callback: () => {
+                        // Verify that an email was sent.
+                        const sentMail = nodemailerMock.mock.getSentMail();
+                        expect(sentMail.length).to.equal(1);
+                        expect(sentMail[0].from).to.equal(FROM_EMAIL_ADDRESS);
+                        expect(sentMail[0].to).to.equal(DUMMY_EMAIL_ADDRESS);
+
+                        expect(sentMail[0].subject).to.equal(`Personal Trainer - Alexa Skill`);
+
+                        const htmlBody = sentMail[0].html;
+                        expect(htmlBody.includes(`Here is your workout by`)).to.be.true;
+                    },
                 },
             ]);
         });
     });
 });
+
+function configureUpsService(responseCode, apiEndpoint, payload) {
+    if (!nock.isActive()) {
+        nock.activate();
+    }
+
+    nock(apiEndpoint)
+        .get(`/v2/accounts/~current/settings/Profile.email`)
+        .query(true)
+        .reply(responseCode, JSON.stringify(payload, null, 2));
+}
 
 function setupYtdlCoreMock(url) {
     const mockChannelName = `mock-channel-name-for-${url}`;

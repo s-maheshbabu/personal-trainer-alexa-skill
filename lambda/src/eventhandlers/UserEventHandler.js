@@ -53,9 +53,9 @@ module.exports = UserEventHandler = {
             }
 
             // TODO: There appears to be a bug where permissions card isn't being placed from UserEventHandlers. Same code works from IntentHandlers.
-            // So we shouldn't tell the users that we put a card in their app?
+            // So we shouldn't tell the users that we put a card in their app until that issue is fixed.
             return responseBuilder
-                .speak(`Sorry but I do not have permissions to email you. I put a card in your Amazon Alexa app in case you plan to grant the permission and try again. Good bye.`)
+                .speak(`Sorry but I do not have permissions to email you. Please consider granting email access for the future. Good bye.`)
                 .withAskForPermissionsConsentCard(["alexa::profile:email:read"])
                 .addDirective({
                     type: APL_DOCUMENT_TYPE,
