@@ -34,11 +34,19 @@ module.exports = PlayWorkoutVideoIntentHandler = {
     console.log(`Video selected: ${JSON.stringify(playable)}`);
 
     if (!Alexa.getSupportedInterfaces(requestEnvelope).hasOwnProperty(APL_INTERFACE)) {
-      return handlerInput.responseBuilder
-        .speak(`I found ${playable.title} from ${playable.channelName}. I put a link to the video in the Alexa app. By the way, try using the skill on Alexa devices with screen, like the Echo Show or Fire TV. I can play the video too on those devices.`)
+      const builder = handlerInput.responseBuilder
         .withShouldEndSession(true)
-        .withSimpleCard(playable.title, playable.originalUrl)
-        .getResponse();
+        .withSimpleCard(playable.title, playable.originalUrl);
+
+      // TODO: Persist this email address in session and use it else where in the skill, like UserEvent Handler.
+      const getEmailAddress = require("utilities").getEmailAddress;
+      const Mailer = require("gateway/Mailer.js");
+      const emailAddress = await getEmailAddress(handlerInput);
+      if (!emailAddress) builder.withAskForPermissionsConsentCard(["alexa::profile:email:read"]);
+      else await Mailer.sendEmail(emailAddress, playable.channelName, playable.originalUrl, playable.videoImageUrl);
+
+      builder.speak(`I found ${playable.title} from ${playable.channelName} and ${emailAddress ? `emailed you a link` : `put a link in the Alexa companion app. I also put a card asking permission to access your email address so I can email you links to your workout videos in future`}. By the way, try using the skill on Alexa devices with screen, like the Echo Show or Fire TV. I can play the video too on those devices.`);
+      return builder.getResponse();
     }
 
     const speakOutput = `Here is ${playable.title} from ${playable.channelName}. Enjoy your workout.`;
